@@ -1,0 +1,22 @@
+//CtrlNKeyAction.cpp
+#include "CtrlNKeyAction.h"
+#include "TextEditor.h"
+#include "resource.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
+CtrlNKeyAction::CtrlNKeyAction(TextEditor* textEditor) {
+	this->textEditor = textEditor;
+}
+
+CtrlNKeyAction::~CtrlNKeyAction() {
+
+}
+
+void CtrlNKeyAction::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
+	this->textEditor->GetParent()->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_FILE_NEW, NULL));
+}

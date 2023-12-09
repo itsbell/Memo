@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{16730947-4153-4c22-8dda-83f79b77257c}</ProjectGuid>
+    <RootNamespace>Notepad20230325</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Array.cpp" />
+    <ClCompile Include="BackSpaceKeyAction.cpp" />
+    <ClCompile Include="BackSpaceKeyCommand.cpp" />
+    <ClCompile Include="CharacterBackSpaceKeyCommand.cpp" />
+    <ClCompile Include="CharacterDeleteKeyCommand.cpp" />
+    <ClCompile Include="Ctrl0KeyAction.cpp" />
+    <ClCompile Include="CtrlGKeyAction.cpp" />
+    <ClCompile Include="CtrlMinusKeyAction.cpp" />
+    <ClCompile Include="CtrlNKeyAction.cpp" />
+    <ClCompile Include="CtrlPKeyAction.cpp" />
+    <ClCompile Include="CtrlPlusKeyAction.cpp" />
+    <ClCompile Include="Document.cpp" />
+    <ClCompile Include="F11KeyAction.cpp" />
+    <ClCompile Include="HelpCommand.cpp" />
+    <ClCompile Include="InfoCommand.cpp" />
+    <ClCompile Include="InfoForm.cpp" />
+    <ClCompile Include="MemoryController.cpp" />
+    <ClCompile Include="MoveCommand.cpp" />
+    <ClCompile Include="MoveForm.cpp" />
+    <ClCompile Include="NewCommand.cpp" />
+    <ClCompile Include="Notepad.cpp" />
+    <ClCompile Include="NotepadCommandFactory.cpp" />
+    <ClCompile Include="OnImeCompositionSelectingCommand.cpp" />
+    <ClCompile Include="PageSetupCommand.cpp" />
+    <ClCompile Include="PasteSelectingCommand.cpp" />
+    <ClCompile Include="PreviewCommand.cpp" />
+    <ClCompile Include="Preview.cpp" />
+    <ClCompile Include="PreviewTextOutVisitor.cpp" />
+    <ClCompile Include="PrintCommand.cpp" />
+    <ClCompile Include="PrintPages.cpp" />
+    <ClCompile Include="PrintTextOutVisitor.cpp" />
+    <ClCompile Include="ReplaceFindCommand.cpp" />
+    <ClCompile Include="Position.cpp" />
+    <ClCompile Include="ReplaceInfoStack.cpp" />
+    <ClCompile Include="RowBackSpaceKeyCommand.cpp" />
+    <ClCompile Include="RowDeleteKeyCommand.cpp" />
+    <ClCompile Include="ShowHelpCommand.cpp" />
+    <ClCompile Include="StatusBarCommand.cpp" />
+    <ClCompile Include="StatusBarController.cpp" />
+    <ClCompile Include="UnDoReDoCommand.cpp" />
+    <ClCompile Include="CaretController.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterCommand.cpp" />
+    <ClCompile Include="CharacterMetrics.cpp" />
+    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="TextEditorCommandFactory.cpp" />
+    <ClCompile Include="Composite.cpp" />
+    <ClCompile Include="CopyCommand.cpp" />
+    <ClCompile Include="CtrlAKeyAction.cpp" />
+    <ClCompile Include="CtrlCKeyAction.cpp" />
+    <ClCompile Include="CtrlDownKeyAction.cpp" />
+    <ClCompile Include="CtrlEndKeyAction.cpp" />
+    <ClCompile Include="CtrlFKeyAction.cpp" />
+    <ClCompile Include="CtrlHKeyAction.cpp" />
+    <ClCompile Include="CtrlHomeKeyAction.cpp" />
+    <ClCompile Include="CtrlLeftKeyAction.cpp" />
+    <ClCompile Include="CtrlOKeyAction.cpp" />
+    <ClCompile Include="CtrlRightKeyAction.cpp" />
+    <ClCompile Include="CtrlShiftDownkeyAction.cpp" />
+    <ClCompile Include="CtrlShiftEndKeyAction.cpp" />
+    <ClCompile Include="CtrlShiftHomeKeyAction.cpp" />
+    <ClCompile Include="CtrlShiftLeftKeyAction.cpp" />
+    <ClCompile Include="CtrlShiftRightKeyAction.cpp" />
+    <ClCompile Include="CtrlShiftSKeyAction.cpp" />
+    <ClCompile Include="CtrlShiftUpKeyAction.cpp" />
+    <ClCompile Include="CtrlYKeyAction.cpp" />
+    <ClCompile Include="CtrlSKeyAction.cpp" />
+    <ClCompile Include="CtrlUpKeyAction.cpp" />
+    <ClCompile Include="CtrlVKeyAction.cpp" />
+    <ClCompile Include="CtrlXKeyAction.cpp" />
+    <ClCompile Include="CtrlZKeyAction.cpp" />
+    <ClCompile Include="CutCommand.cpp" />
+    <ClCompile Include="DeleteCommand.cpp" />
+    <ClCompile Include="DeleteKeyAction.cpp" />
+    <ClCompile Include="DeleteKeyCommand.cpp" />
+    <ClCompile Include="DownKeyAction.cpp" />
+    <ClCompile Include="DummyRow.cpp" />
+    <ClCompile Include="EditCommand.cpp" />
+    <ClCompile Include="EndKeyAction.cpp" />
+    <ClCompile Include="F3KeyAction.cpp" />
+    <ClCompile Include="FileCommand.cpp" />
+    <ClCompile Include="FindCommand.cpp" />
+    <ClCompile Include="FindNextCommand.cpp" />
+    <ClCompile Include="FindPreviousCommand.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontCommand.cpp" />
+    <ClCompile Include="Glyph.cpp" />
+    <ClCompile Include="GlyphFactory.cpp" />
+    <ClCompile Include="GlyphVisitor.cpp" />
+    <ClCompile Include="HomeKeyAction.cpp" />
+    <ClCompile Include="HorizontalScroll.cpp" />
+    <ClCompile Include="HScrollAction.cpp" />
+    <ClCompile Include="HScrollActionFactory.cpp" />
+    <ClCompile Include="HSLineLeftAction.cpp" />
+    <ClCompile Include="HSLineRightAction.cpp" />
+    <ClCompile Include="HSPageLeftAction.cpp" />
+    <ClCompile Include="HSPageRightAction.cpp" />
+    <ClCompile Include="HSThumbTrackAction.cpp" />
+    <ClCompile Include="KeyAction.cpp" />
+    <ClCompile Include="KeyActionFactory.cpp" />
+    <ClCompile Include="LeftKeyAction.cpp" />
+    <ClCompile Include="MacroCommand.cpp" />
+    <ClCompile Include="MultiByteCharacter.cpp" />
+    <ClCompile Include="TextEditor.cpp" />
+    <ClCompile Include="NotepadApp.cpp" />
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="OnCharCommand.cpp" />
+    <ClCompile Include="OnCharEnterCommand.cpp" />
+    <ClCompile Include="OnCharEnterSelectingCommand.cpp" />
+    <ClCompile Include="OnCharSelectingCommand.cpp" />
+    <ClCompile Include="OnImeCharCommand.cpp" />
+    <ClCompile Include="OnImeCompositionCommand.cpp" />
+    <ClCompile Include="OpenCommand.cpp" />
+    <ClCompile Include="PageDownKeyAction.cpp" />
+    <ClCompile Include="PageUpKeyAction.cpp" />
+    <ClCompile Include="Paper.cpp" />
+    <ClCompile Include="PasteCommand.cpp" />
+    <ClCompile Include="ReDoCommand.cpp" />
+    <ClCompile Include="ReplaceAllCommand.cpp" />
+    <ClCompile Include="ReplaceCommand.cpp" />
+    <ClCompile Include="ReplaceCurrentCommand.cpp" />
+    <ClCompile Include="RightKeyAction.cpp" />
+    <ClCompile Include="Row.cpp" />
+    <ClCompile Include="SaveAsCommand.cpp" />
+    <ClCompile Include="SaveCommand.cpp" />
+    <ClCompile Include="Scroll.cpp" />
+    <ClCompile Include="ScrollAction.cpp" />
+    <ClCompile Include="ScrollController.cpp" />
+    <ClCompile Include="SelectAllCommand.cpp" />
+    <ClCompile Include="SelectedTextOutVisitor.cpp" />
+    <ClCompile Include="SelectingBackSpaceKeyAction.cpp" />
+    <ClCompile Include="SelectingBackSpaceKeyCommand.cpp" />
+    <ClCompile Include="SelectingDeleteKeyAction.cpp" />
+    <ClCompile Include="SelectingLeftKeyAction.cpp" />
+    <ClCompile Include="SelectingRightKeyAction.cpp" />
+    <ClCompile Include="ShiftDownKeyAction.cpp" />
+    <ClCompile Include="ShiftEndKeyAction.cpp" />
+    <ClCompile Include="ShiftF3KeyAction.cpp" />
+    <ClCompile Include="ShiftHomeKeyAction.cpp" />
+    <ClCompile Include="ShiftLeftKeyAction.cpp" />
+    <ClCompile Include="ShiftPageDownKeyAction.cpp" />
+    <ClCompile Include="ShiftPageUpKeyAction.cpp" />
+    <ClCompile Include="ShiftRightKeyAction.cpp" />
+    <ClCompile Include="ShiftUpKeyAction.cpp" />
+    <ClCompile Include="SingleByteCharacter.cpp" />
+    <ClCompile Include="Stack.cpp" />
+    <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="TextOutVisitor.cpp" />
+    <ClCompile Include="UnDoCommand.cpp" />
+    <ClCompile Include="UpKeyAction.cpp" />
+    <ClCompile Include="VerticalScroll.cpp" />
+    <ClCompile Include="ViewCommand.cpp" />
+    <ClCompile Include="VScrollAction.cpp" />
+    <ClCompile Include="VScrollActionFactory.cpp" />
+    <ClCompile Include="VSLineDownAction.cpp" />
+    <ClCompile Include="VSLineUpAction.cpp" />
+    <ClCompile Include="VSPageDownAction.cpp" />
+    <ClCompile Include="VSPageUpAction.cpp" />
+    <ClCompile Include="VSThumbTrackAction.cpp" />
+    <ClCompile Include="WrapCommand.cpp" />
+    <ClCompile Include="ZoomController.cpp" />
+    <ClCompile Include="ZoomInCommand.cpp" />
+    <ClCompile Include="ZoomOutCommand.cpp" />
+    <ClCompile Include="ZoomResetCommand.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Array.h" />
+    <ClInclude Include="BackSpaceKeyAction.h" />
+    <ClInclude Include="BackSpaceKeyCommand.h" />
+    <ClInclude Include="CharacterBackSpaceKeyCommand.h" />
+    <ClInclude Include="CharacterDeleteKeyCommand.h" />
+    <ClInclude Include="Ctrl0KeyAction.h" />
+    <ClInclude Include="CtrlGKeyAction.h" />
+    <ClInclude Include="CtrlMinusKeyAction.h" />
+    <ClInclude Include="CtrlNKeyAction.h" />
+    <ClInclude Include="CtrlPKeyAction.h" />
+    <ClInclude Include="CtrlPlusKeyAction.h" />
+    <ClInclude Include="Document.h" />
+    <ClInclude Include="F11KeyAction.h" />
+    <ClInclude Include="HelpCommand.h" />
+    <ClInclude Include="InfoCommand.h" />
+    <ClInclude Include="InfoForm.h" />
+    <ClInclude Include="MemoryController.h" />
+    <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="MoveForm.h" />
+    <ClInclude Include="NewCommand.h" />
+    <ClInclude Include="Notepad.h" />
+    <ClInclude Include="NotepadCommandFactory.h" />
+    <ClInclude Include="OnImeCompositionSelectingCommand.h" />
+    <ClInclude Include="PageSetupCommand.h" />
+    <ClInclude Include="PasteSelectingCommand.h" />
+    <ClInclude Include="PreviewCommand.h" />
+    <ClInclude Include="Preview.h" />
+    <ClInclude Include="PreviewTextOutVisitor.h" />
+    <ClInclude Include="PrintCommand.h" />
+    <ClInclude Include="PrintPages.h" />
+    <ClInclude Include="PrintTextOutVisitor.h" />
+    <ClInclude Include="ReplaceFindCommand.h" />
+    <ClInclude Include="Position.h" />
+    <ClInclude Include="ReplaceInfoStack.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RowBackSpaceKeyCommand.h" />
+    <ClInclude Include="RowDeleteKeyCommand.h" />
+    <ClInclude Include="ShowHelpCommand.h" />
+    <ClInclude Include="StatusBarCommand.h" />
+    <ClInclude Include="StatusBarController.h" />
+    <ClInclude Include="UnDoReDoCommand.h" />
+    <ClInclude Include="CaretController.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterCommand.h" />
+    <ClInclude Include="CharacterMetrics.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="TextEditorCommandFactory.h" />
+    <ClInclude Include="Composite.h" />
+    <ClInclude Include="CopyCommand.h" />
+    <ClInclude Include="CtrlAKeyAction.h" />
+    <ClInclude Include="CtrlCKeyAction.h" />
+    <ClInclude Include="CtrlDownKeyAction.h" />
+    <ClInclude Include="CtrlEndKeyAction.h" />
+    <ClInclude Include="CtrlFKeyAction.h" />
+    <ClInclude Include="CtrlHKeyAction.h" />
+    <ClInclude Include="CtrlHomeKeyAction.h" />
+    <ClInclude Include="CtrlLeftKeyAction.h" />
+    <ClInclude Include="CtrlOKeyAction.h" />
+    <ClInclude Include="CtrlRightKeyAction.h" />
+    <ClInclude Include="CtrlShiftDownKeyAction.h" />
+    <ClInclude Include="CtrlShiftEndKeyAction.h" />
+    <ClInclude Include="CtrlShiftHomeKeyAction.h" />
+    <ClInclude Include="CtrlShiftLeftKeyAction.h" />
+    <ClInclude Include="CtrlShiftRightKeyAction.h" />
+    <ClInclude Include="CtrlShiftSKeyAction.h" />
+    <ClInclude Include="CtrlShiftUpKeyAction.h" />
+    <ClInclude Include="CtrlYKeyAction.h" />
+    <ClInclude Include="CtrlSKeyAction.h" />
+    <ClInclude Include="CtrlUpKeyAction.h" />
+    <ClInclude Include="CtrlVKeyAction.h" />
+    <ClInclude Include="CtrlXKeyAction.h" />
+    <ClInclude Include="CtrlZKeyAction.h" />
+    <ClInclude Include="CutCommand.h" />
+    <ClInclude Include="DeleteCommand.h" />
+    <ClInclude Include="DeleteKeyAction.h" />
+    <ClInclude Include="DeleteKeyCommand.h" />
+    <ClInclude Include="DownKeyAction.h" />
+    <ClInclude Include="DummyRow.h" />
+    <ClInclude Include="EditCommand.h" />
+    <ClInclude Include="EndKeyAction.h" />
+    <ClInclude Include="F3KeyAction.h" />
+    <ClInclude Include="FileCommand.h" />
+    <ClInclude Include="FindCommand.h" />
+    <ClInclude Include="FindNextCommand.h" />
+    <ClInclude Include="FindPreviousCommand.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="FontCommand.h" />
+    <ClInclude Include="Glyph.h" />
+    <ClInclude Include="GlyphFactory.h" />
+    <ClInclude Include="GlyphVisitor.h" />
+    <ClInclude Include="HomeKeyAction.h" />
+    <ClInclude Include="HorizontalScroll.h" />
+    <ClInclude Include="HScrollAction.h" />
+    <ClInclude Include="HScrollActionFactory.h" />
+    <ClInclude Include="HSLineLeftAction.h" />
+    <ClInclude Include="HSLineRightAction.h" />
+    <ClInclude Include="HSPageLeftAction.h" />
+    <ClInclude Include="HSPageRightAction.h" />
+    <ClInclude Include="HSThumbTrackAction.h" />
+    <ClInclude Include="KeyAction.h" />
+    <ClInclude Include="KeyActionFactory.h" />
+    <ClInclude Include="LeftKeyAction.h" />
+    <ClInclude Include="MacroCommand.h" />
+    <ClInclude Include="MultiByteCharacter.h" />
+    <ClInclude Include="TextEditor.h" />
+    <ClInclude Include="NotepadApp.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="OnCharCommand.h" />
+    <ClInclude Include="OnCharEnterCommand.h" />
+    <ClInclude Include="OnCharEnterSelectingCommand.h" />
+    <ClInclude Include="OnCharSelectingCommand.h" />
+    <ClInclude Include="OnImeCharCommand.h" />
+    <ClInclude Include="OnImeCompositionCommand.h" />
+    <ClInclude Include="OpenCommand.h" />
+    <ClInclude Include="PageDownKeyAction.h" />
+    <ClInclude Include="PageUpKeyAction.h" />
+    <ClInclude Include="Paper.h" />
+    <ClInclude Include="PasteCommand.h" />
+    <ClInclude Include="ReDoCommand.h" />
+    <ClInclude Include="ReplaceAllCommand.h" />
+    <ClInclude Include="ReplaceCommand.h" />
+    <ClInclude Include="ReplaceCurrentCommand.h" />
+    <ClInclude Include="RightKeyAction.h" />
+    <ClInclude Include="Row.h" />
+    <ClInclude Include="SaveAsCommand.h" />
+    <ClInclude Include="SaveCommand.h" />
+    <ClInclude Include="Scroll.h" />
+    <ClInclude Include="ScrollAction.h" />
+    <ClInclude Include="ScrollController.h" />
+    <ClInclude Include="SelectAllCommand.h" />
+    <ClInclude Include="SelectedTextOutVisitor.h" />
+    <ClInclude Include="SelectingBackSpaceKeyAction.h" />
+    <ClInclude Include="SelectingBackSpaceKeyCommand.h" />
+    <ClInclude Include="SelectingDeleteKeyAction.h" />
+    <ClInclude Include="SelectingLeftKeyAction.h" />
+    <ClInclude Include="SelectingRightKeyAction.h" />
+    <ClInclude Include="ShiftDownKeyAction.h" />
+    <ClInclude Include="ShiftEndKeyAction.h" />
+    <ClInclude Include="ShiftF3KeyAction.h" />
+    <ClInclude Include="ShiftHomeKeyAction.h" />
+    <ClInclude Include="ShiftLeftKeyAction.h" />
+    <ClInclude Include="ShiftPageDownKeyAction.h" />
+    <ClInclude Include="ShiftPageUpKeyAction.h" />
+    <ClInclude Include="ShiftRightKeyAction.h" />
+    <ClInclude Include="ShiftUpKeyAction.h" />
+    <ClInclude Include="SingleByteCharacter.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="Subject.h" />
+    <ClInclude Include="TextOutVisitor.h" />
+    <ClInclude Include="UnDoCommand.h" />
+    <ClInclude Include="UpKeyAction.h" />
+    <ClInclude Include="VerticalScroll.h" />
+    <ClInclude Include="ViewCommand.h" />
+    <ClInclude Include="VScrollAction.h" />
+    <ClInclude Include="VScrollActionFactory.h" />
+    <ClInclude Include="VSLineDownAction.h" />
+    <ClInclude Include="VSLineUpAction.h" />
+    <ClInclude Include="VSPageDownAction.h" />
+    <ClInclude Include="VSPageUpAction.h" />
+    <ClInclude Include="VSThumbTrackAction.h" />
+    <ClInclude Include="WrapCommand.h" />
+    <ClInclude Include="ZoomController.h" />
+    <ClInclude Include="ZoomInCommand.h" />
+    <ClInclude Include="ZoomOutCommand.h" />
+    <ClInclude Include="ZoomResetCommand.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Notepad20230325.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

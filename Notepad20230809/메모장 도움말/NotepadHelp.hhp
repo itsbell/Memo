@@ -1,0 +1,45 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=NotepadHelp.chm
+Contents file=Table of Contents.hhc
+Default Window=NotepadHelp
+Default topic=html\Home.htm
+Display compile progress=No
+Full-text search=Yes
+Language=0x412 한국어(대한민국)
+Title=NotepadHelp
+
+[WINDOWS]
+NotepadHelp="메모장 도움말","Table of Contents.hhc",,"html\Home.htm","html\Home.htm",,,,,0x42021,,0x6c,[300,300,1000,900],,,,,,,0
+
+
+[FILES]
+html\Home.htm
+html\New.htm
+html\ZoonIn.htm
+html\UnDo.htm
+html\Open.htm
+html\PageSetup.htm
+html\Preview.htm
+html\Print.htm
+html\Save.htm
+html\SaveAs.htm
+html\Copy.htm
+html\Cut.htm
+html\Delete.htm
+html\Find.htm
+html\FindNext.htm
+html\FindPrevious.htm
+html\Font.htm
+html\Move.htm
+html\Paste.htm
+html\ReDo.htm
+html\Replace.htm
+html\Time.htm
+html\SelectAll.htm
+html\ZoomOut.htm
+html\StatusBar.htm
+html\Wrap.htm
+
+[INFOTYPES]
+

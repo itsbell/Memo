@@ -1,0 +1,244 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 한국어(대한민국) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "파일"
+    BEGIN
+        MENUITEM "새로 만들기\tCtrl+N",              IDM_FILE_NEW
+        MENUITEM "열기\tCtrl+O",                  IDM_FILE_OPEN
+        MENUITEM "저장\tCtrl+S",                  IDM_FILE_SAVE
+        MENUITEM "다른 이름으로 저장\tCtrl+Shift+S",    IDM_FILE_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "미리보기\tF11",                   IDM_FILE_PREVIEW
+        MENUITEM "페이지 설정",                      IDM_FILE_PAGESETUP
+        MENUITEM "인쇄\tCtrl+P",                  IDM_FILE_PRINT
+        MENUITEM SEPARATOR
+        MENUITEM "종료",                          IDM_FILE_EXIT
+    END
+    POPUP "편집"
+    BEGIN
+        MENUITEM "실행 취소\tCtrl+Z",               IDM_EDIT_UNDO, GRAYED
+        MENUITEM "재 실행\tCtrl+Y",                IDM_EDIT_REDO, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "잘라내기\tCtrl+X",                IDM_EDIT_CUT, GRAYED
+        MENUITEM "복사\tCtrl+C",                  IDM_EDIT_COPY, GRAYED
+        MENUITEM "붙여넣기\tCtrl+V",                IDM_EDIT_PASTE, GRAYED
+        MENUITEM "삭제\tDel",                     IDM_EDIT_DELETE, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "찾기\tCtrl+F",                  IDM_EDIT_FIND, GRAYED
+        MENUITEM "다음 찾기\tF3",                   IDM_EDIT_FINDNEXT, GRAYED
+        MENUITEM "이전 찾기\tShift+F3",             IDM_EDIT_FINDPREVIOUS, GRAYED
+        MENUITEM "바꾸기\tCtrl+H",                 IDM_EDIT_REPLACE, GRAYED
+        MENUITEM "이동\tCtrl+G",                  IDM_EDIT_MOVE
+        MENUITEM SEPARATOR
+        MENUITEM "모두 선택\tCtrl+A",               IDM_EDIT_SELECTALL
+        MENUITEM "시간/날짜\tF5",                   IDM_EDIT_DATETIME
+        MENUITEM SEPARATOR
+        MENUITEM "글꼴",                          IDM_EDIT_FONT
+    END
+    POPUP "보기"
+    BEGIN
+        POPUP "확대/축소"
+        BEGIN
+            MENUITEM "확대\tCtrl+Plus",               IDM_VIEW_ZOOMIN
+            MENUITEM "축소\tCtrl+Minus",              IDM_VIEW_ZOOMOUT
+            MENUITEM "기본 확대 /축소 복원\tCtrl+0",        IDM_VIEW_RESET
+        END
+        MENUITEM "상태 표시줄",                      IDM_VIEW_STATUSBAR, CHECKED
+        MENUITEM "자동 줄 바꿈",                     IDM_VIEW_WRAP
+    END
+    POPUP "도움말"
+    BEGIN
+        MENUITEM "도움말 보기",                      IDM_HELP_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "메모장 정보",                      IDM_HELP_INFO
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MOVEFORM DIALOGEX 0, 0, 203, 110
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "줄로 이동"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_NUMBER,28,35,146,18,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "이 동",IDC_BUTTON_MOVE,28,74,71,20
+    LTEXT           "줄 번호",IDC_STATIC_NUMBER,29,20,31,12
+    PUSHBUTTON      "취 소",IDC_BUTTON_CANCEL,103,74,71,20
+END
+
+IDD_INFOMATION DIALOGEX 0, 0, 185, 60
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "메모장 정보"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "확인",IDC_BUTTON_CHECK,132,43,50,14
+    LTEXT           "메모장 0.2305.0\rⓒ 2023 BELL. All rights reserved.",IDC_STATIC,23,16,122,19
+END
+
+IDD_ENCODING DIALOGEX 0, 0, 118, 18
+STYLE DS_SETFONT | WS_CHILD
+FONT 9, "굴림", 400, 0, 0x0
+BEGIN
+    LTEXT           "인코딩 : ",IDC_STATIC_ENCODING,3,5,31,8
+    COMBOBOX        IDC_COMBO_ENCODING,33,2,81,12,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MOVEFORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 196
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 103
+    END
+
+    IDD_INFOMATION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 178
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 53
+    END
+
+    IDD_ENCODING, DIALOG
+    BEGIN
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_MOVEFORM AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_INFOMATION AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ENCODING AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_PREVIOUS     BITMAP                  "C:\\Users\\leebe\\Downloads\\leftArrow.bmp"
+
+IDB_BITMAP_NEXT         BITMAP                  "C:\\Users\\leebe\\Downloads\\rightArrow.bmp"
+
+IDB_BITMAP_PRINT        BITMAP                  "C:\\Users\\leebe\\Downloads\\print.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON_MEMO           ICON                    "C:\\Users\\leebe\\Downloads\\Memo.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_CURRENT             "줄 1, 열1"
+    IDS_MAGNIFICATION       "100%"
+    IDS_CRLF                "Windows (CRLF)"
+    IDS_ENCODING            "UTF-8"
+END
+
+#endif    // 한국어(대한민국) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
