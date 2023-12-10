@@ -9,7 +9,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-
+//git test
 /*
 클래스명: CharacterMetrics
 기    능: 문자의 길이를 구하다.
