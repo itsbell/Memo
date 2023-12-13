@@ -34,18 +34,16 @@ void SaveCommand::Execute() {
 	
 	//1. 파일경로가 없는 경우
 	if (this->textEditor->pathName.compare(string("")) == 0 ) {
-
-		//1.1. 저장 공통대화상자를 띄우다.
 		int save;
 		TCHAR szFilters[] = "텍스트 문서(*.txt)|*.txt|";
 		CFileDialogEx fileDialog(FALSE, "txt", "*.txt", OFN_OVERWRITEPROMPT, szFilters, NULL, 0, FALSE);
 
 		save = fileDialog.DoModal();
 		if (save == IDOK) {
-			// 파일이름을 읽는다.
 			CString fileName = fileDialog.GetFileTitle();
-			// 파일경로를 읽는다.
 			CString pathName = fileDialog.GetPathName();
+			this->textEditor->fileName = fileName;
+			this->textEditor->pathName = pathName;
 			memset(this->textEditor->encoding, 0, 16);
 			strcpy(this->textEditor->encoding, fileDialog.encoding);
 			FileMaker fileMaker(this->textEditor, (LPCTSTR)pathName);
@@ -80,8 +78,7 @@ void SaveCommand::Execute() {
 			// 캡션을 고치다.
 			this->textEditor->GetParent()->SetWindowText(fileName + " - 메모장");
 			// 파일이름, 파일경로, 수정유무를 고치다.
-			this->textEditor->fileName = fileName;
-			this->textEditor->pathName = pathName;
+			
 			this->textEditor->isModified = false;
 		}
 	}

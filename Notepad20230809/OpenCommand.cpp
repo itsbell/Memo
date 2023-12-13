@@ -78,6 +78,8 @@ void OpenCommand::Execute() {
 			if (save == IDOK) {
 				fileName = saveAsFileDialog.GetFileTitle();
 				pathName = saveAsFileDialog.GetPathName();
+				this->textEditor->fileName = fileName;
+				this->textEditor->pathName = pathName;
 				memset(this->textEditor->encoding, 0, 16);
 				strcpy(this->textEditor->encoding, saveAsFileDialog.encoding);
 				FileMaker fileMaker(this->textEditor, (LPCTSTR)pathName);
@@ -94,8 +96,7 @@ void OpenCommand::Execute() {
 				}
 				this->textEditor->GetParent()->SetWindowText(fileName + " - 메모장");
 				//1.2.2.5. 파일이름, 파일경로, 수정여부를 고치다.
-				this->textEditor->fileName = fileName;
-				this->textEditor->pathName = pathName;
+				
 				this->textEditor->isModified = false;
 			}
 			//1.2.3. '취소'를 누르면 '열기' flag를 고치다.

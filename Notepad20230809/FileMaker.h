@@ -30,6 +30,8 @@ class FileMaker {
 		void SaveSetting(Font* font, bool isWrapped);
 
 		char* GetPath() const;
+		char* GetLog() const;
+		char* GetBackup() const;
 		char* GetFile() const;
 		char* GetDel() const;
 		char* GetPaste() const;
@@ -38,6 +40,8 @@ class FileMaker {
 		
 	private:
 		char* path;
+		char* log;
+		char* backup;
 		char* file;
 		char* del;
 		char* paste;
@@ -51,6 +55,14 @@ class FileMaker {
 
 inline char* FileMaker::GetPath() const {
 	return this->path;
+}
+
+inline char* FileMaker::GetLog() const {
+	return this->log;
+}
+
+inline char* FileMaker::GetBackup() const {
+	return this->backup;
 }
 
 inline char* FileMaker::GetFile() const {

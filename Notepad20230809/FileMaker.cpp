@@ -10,6 +10,8 @@
 #include "UTF16LEConverter.h"
 #include "UTF16BEConverter.h"
 #include "Font.h"
+#include "Date.h"
+#include "Time.h"
 #include "resource.h"
 
 #include <shlobj_core.h>
@@ -34,6 +36,8 @@ FileMaker::FileMaker(TextEditor* textEditor)
 	this->bigEndianBOM[0] = 0xFE;
 	this->bigEndianBOM[1] = 0xFF;
 	this->path = new char[128];
+	this->log = new char[128];
+	this->backup = new char[128];
 	this->file = new char[128];
 	this->del = new char[128];
 	this->paste = new char[128];
@@ -42,51 +46,16 @@ FileMaker::FileMaker(TextEditor* textEditor)
 	::SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, path);
 	strcat(this->path, "\\Notepad");
 	mkdir(this->path);
-	
-//	strcpy(this->file, this->path);
-//	strcat(this->file, "\\file.tmp");
+	sprintf(this->log, "%s\\Logs", this->path);
+	mkdir(this->log);
+	sprintf(this->backup, "%s\\Backup",this->path);
+	mkdir(this->backup);
 	sprintf(this->file, "%s\\%sfile.tmp", this->path, textEditor->time);
-//	strcpy(this->del, this->path);
-//	strcat(this->del, "\\del.tmp");
 	sprintf(this->del, "%s\\%sdel.tmp", this->path, textEditor->time);
-//	strcpy(this->paste, this->path);
-//	strcat(this->paste, "\\paste.tmp");
 	sprintf(this->paste, "%s\\%spaste.tmp", this->path, textEditor->time);
-//	strcpy(this->temp, this->path);
-//	strcat(this->temp, "\\temp.tmp");
 	sprintf(this->temp, "%s\\%stemp.tmp", this->path, textEditor->time);
 	sprintf(this->setting, "%s\\setting.tmp", this->path);
 }
-#if 0
-FileMaker::FileMaker(Document* document, CharacterMetrics* characterMetrics)
-	:pathName("") {
-	this->utf8BOM[0] = 0xEF;
-	this->utf8BOM[1] = 0xBB;
-	this->utf8BOM[2] = 0xBF;
-	this->littleEndianBOM[0] = 0xFF;
-	this->littleEndianBOM[1] = 0xFE;
-	this->bigEndianBOM[0] = 0xFE;
-	this->bigEndianBOM[1] = 0xFF;
-	this->document = document;
-	this->characterMetrics = characterMetrics;
-	this->path = new char[128];
-	this->file = new char[128];
-	this->del = new char[128];
-	this->paste = new char[128];
-	this->temp = new char[128];
-	::SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, path);
-	strcat(this->path, "\\Notepad");
-	mkdir(this->path);
-	strcpy(this->file, this->path);
-	strcat(this->file, "\\file.tmp");
-	strcpy(this->del, this->path);
-	strcat(this->del, "\\del.tmp");
-	strcpy(this->paste, this->path);
-	strcat(this->paste, "\\paste.tmp");
-	strcpy(this->temp, this->path);
-	strcat(this->temp, "\\temp.tmp");
-}
-#endif
 FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	:pathName(pathName){
 	this->textEditor = textEditor;
@@ -98,6 +67,8 @@ FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	this->bigEndianBOM[0] = 0xFE;
 	this->bigEndianBOM[1] = 0xFF;
 	this->path = new char[128];
+	this->log = new char[128];
+	this->backup = new char[128];
 	this->file = new char[128];
 	this->del = new char[128];
 	this->paste = new char[128];
@@ -106,17 +77,13 @@ FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	::SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, path);
 	strcat(this->path, "\\Notepad");
 	mkdir(this->path);
-	//	strcpy(this->file, this->path);
-	//	strcat(this->file, "\\file.tmp");
+	sprintf(this->log, "%s\\Logs", this->path);
+	mkdir(this->log);
+	sprintf(this->backup, "%s\\Backup", this->path);
+	mkdir(this->backup);
 	sprintf(this->file, "%s\\%sfile.tmp", this->path, textEditor->time);
-	//	strcpy(this->del, this->path);
-	//	strcat(this->del, "\\del.tmp");
 	sprintf(this->del, "%s\\%sdel.tmp", this->path, textEditor->time);
-	//	strcpy(this->paste, this->path);
-	//	strcat(this->paste, "\\paste.tmp");
 	sprintf(this->paste, "%s\\%spaste.tmp", this->path, textEditor->time);
-	//	strcpy(this->temp, this->path);
-	//	strcat(this->temp, "\\temp.tmp");
 	sprintf(this->temp, "%s\\%stemp.tmp", this->path, textEditor->time);
 	sprintf(this->setting, "%s\\setting.tmp", this->path);
 }
@@ -125,6 +92,12 @@ FileMaker::~FileMaker() {
 	
 	if (this->path != 0) {
 		delete this->path;
+	}
+	if (this->log != 0) {
+		delete this->log;
+	}
+	if (this->backup != 0) {
+		delete this->backup;
 	}
 	if (this->file != 0) {
 		delete this->file;
@@ -301,6 +274,104 @@ void FileMaker::Save(TextConverter* textConverter){
 	if (data != 0) {
 		delete[] data;
 	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////C:\ProgramData\Notepad\Backup//////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////ForBackUp/////////////////////////////////////////////////////////////////////////
+	Time time = time.GetCurrent();
+	Date date = date.Today();
+	data = new char[MAX];
+	buffer = new TCHAR[MAX];
+	pBuffer = new WCHAR[MAX];
+	i = 1;
+	pathName = "";
+	pathName += this->backup;
+	pathName += "\\";
+
+	char today[11];
+	sprintf(today, "%s", (char*)date);
+	pathName += today;
+	pathName += " ";
+	pathName += this->textEditor->fileName;
+	char current[14];
+	
+	sprintf(current, " %02d시%02d분%02d초", time.GetHour(), time.GetMin(), time.GetSec());
+	pathName += current;
+	pathName += ".txt";
+	
+	file = fopen(pathName.c_str(), "wt");
+	temp = fopen(this->file, "rt");
+	if (file != NULL && temp != NULL) {
+		if (dynamic_cast<UTF8BOMConverter*>(textConverter)) {
+			fwrite(utf8BOM, sizeof(utf8BOM), 1, file);
+		}
+		while (i < this->textEditor->document->GetStart()) {
+			memset(data, 0, MAX);
+			memset(buffer, 0, MAX);
+			memset(pBuffer, 0, MAX);
+			fseek(temp, (i - 1) * (12 + MAX), SEEK_SET);
+			fscanf(temp, "%d", &byte);
+			fseek(temp, 8, SEEK_CUR);
+			fread(buffer, byte, 1, temp);
+			buffer[byte] = '\n';
+			byte++;
+			textConverter->EncodeToMultiByteChar(buffer, byte, pBuffer, data, &mLength);
+			fwrite(data, mLength, 1, file);
+			i++;
+		}
+		i = 1;
+		while (i <= this->textEditor->document->paper->GetLength()) {
+			memset(data, 0, MAX);
+			memset(buffer, 0, MAX);
+			memset(pBuffer, 0, MAX);
+			row = this->textEditor->document->paper->GetAt(i - 1);
+			contents = row->GetContents();
+			while (i + 1 <= this->textEditor->document->paper->GetLength() && dynamic_cast<DummyRow*>(this->textEditor->document->paper->GetAt(i))) {
+				row = this->textEditor->document->paper->GetAt(i);
+				contents += row->GetContents();
+				i++;
+			}
+			if (i < this->textEditor->document->paper->GetLength()) {
+				contents += '\n';
+			}
+			textConverter->EncodeToMultiByteChar((TCHAR*)contents.c_str(), contents.length(), pBuffer, data, &mLength);
+			fputs(data, file);
+			i++;
+		}
+		i = this->textEditor->document->GetEnd() + 1;
+		while (i <= this->textEditor->document->GetLength()) {
+			memset(data, 0, MAX);
+			memset(buffer, 0, MAX);
+			memset(pBuffer, 0, MAX);
+			fseek(temp, (i - 1) * (12 + MAX), SEEK_SET);
+			fscanf(temp, "%d", &byte);
+			fseek(temp, 8, SEEK_CUR);
+			fread(buffer, byte, 1, temp);
+			j = byte - 1;
+			while (j >= 0) {
+				buffer[j + 1] = buffer[j];
+				j--;
+			}
+			buffer[0] = '\n';
+			byte++;
+			textConverter->EncodeToMultiByteChar(buffer, byte, pBuffer, data, &mLength);
+			fwrite(data, mLength, 1, file);
+			i++;
+		}
+		fclose(file);
+		fclose(temp);
+	}
+	if (buffer != 0) {
+		delete[] buffer;
+	}
+	if (pBuffer != 0) {
+		delete[] pBuffer;
+	}
+	if (data != 0) {
+		delete[] data;
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 void FileMaker::SaveUTF16(TextConverter* textConverter){
@@ -386,6 +457,104 @@ void FileMaker::SaveUTF16(TextConverter* textConverter){
 	if (pBuffer != 0) {
 		delete[] pBuffer;
 	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////C:\ProgramData\Notepad\Backup//////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////ForBackUp/////////////////////////////////////////////////////////////////////////
+	Time time = time.GetCurrent();
+	Date date = date.Today();
+	pathName = "";
+	pathName += this->backup;
+	pathName += "\\";
+
+	char today[11];
+	sprintf(today, "%s", (char*)date);
+	pathName += today;
+	pathName += " ";
+	pathName += this->textEditor->fileName;
+	char current[14];
+
+	sprintf(current, " %02d시%02d분%02d초", time.GetHour(), time.GetMin(), time.GetSec());
+	pathName += current;
+	pathName += ".txt";
+
+	buffer = new TCHAR[MAX];
+	pBuffer = new WCHAR[MAX];
+	i = 1;
+
+	file = fopen(pathName.c_str(), "wb");
+	temp = fopen(this->file, "rt");
+	if (file != NULL && temp != NULL) {
+		if (dynamic_cast<UTF16LEConverter*>(textConverter)) {
+			fwrite(littleEndianBOM, sizeof(littleEndianBOM), 1, file);
+		}
+		else {
+			fwrite(bigEndianBOM, sizeof(bigEndianBOM), 1, file);
+		}
+		while (i < this->textEditor->document->GetStart()) {
+			memset(buffer, 0, MAX);
+			memset(pBuffer, 0, MAX);
+			fseek(temp, (i - 1) * (12 + MAX), SEEK_SET);
+			fscanf(temp, "%d", &byte);
+			fseek(temp, 8, SEEK_CUR);
+			fread(buffer, byte, 1, temp);
+			buffer[byte] = '\r';
+			buffer[byte + 1] = '\n';
+			byte += 2;
+			textConverter->EncodeToWideChar(buffer, byte, pBuffer, &wLength);
+			fwrite(pBuffer, wLength * 2, 1, file);
+			i++;
+		}
+		i = 1;
+		while (i <= this->textEditor->document->paper->GetLength()) {
+			contents = "";
+			memset(pBuffer, 0, MAX);
+			if (i > 1) {
+				contents = "\r\n";
+			}
+			row = this->textEditor->document->paper->GetAt(i - 1);
+			contents += row->GetContents();
+			while (i + 1 <= this->textEditor->document->paper->GetLength() && dynamic_cast<DummyRow*>(this->textEditor->document->paper->GetAt(i))) {
+				row = this->textEditor->document->paper->GetAt(i);
+				contents += row->GetContents();
+				i++;
+			}
+			byte = contents.length();
+			textConverter->EncodeToWideChar((TCHAR*)contents.c_str(), byte, pBuffer, &wLength);
+			fwrite(pBuffer, wLength * 2, 1, file);
+			i++;
+		}
+		i = this->textEditor->document->GetEnd() + 1;
+		while (i <= this->textEditor->document->GetLength()) {
+			memset(buffer, 0, MAX);
+			memset(pBuffer, 0, MAX);
+			fseek(temp, (i - 1) * (12 + MAX), SEEK_SET);
+			fscanf(temp, "%d", &byte);
+			fseek(temp, 8, SEEK_CUR);
+			fread(buffer, byte, 1, temp);
+			j = byte - 1;
+			while (j >= 0) {
+				buffer[j + 2] = buffer[j];
+				j--;
+			}
+			buffer[1] = '\n';
+			buffer[0] = '\r';
+			byte += 2;
+			textConverter->EncodeToWideChar(buffer, byte, pBuffer, &wLength);
+			fwrite(pBuffer, wLength * 2, 1, file);
+			i++;
+		}
+		fclose(file);
+		fclose(temp);
+	}
+	if (buffer != 0) {
+		delete[] buffer;
+	}
+	if (pBuffer != 0) {
+		delete[] pBuffer;
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 void FileMaker::Remove() {

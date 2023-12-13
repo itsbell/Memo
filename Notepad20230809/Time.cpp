@@ -5,7 +5,6 @@
 #pragma warning (disable:4996)
 
 Time::Time() {
-
 	this->hour = 0;
 	this->min = 0;
 	this->sec = 0;

@@ -36,6 +36,8 @@ void SaveAsCommand::Execute() {
 	if (fileDialog.DoModal() == IDOK) {
 		CString fileName = fileDialog.GetFileTitle();
 		CString pathName = fileDialog.GetPathName();
+		this->textEditor->fileName = fileName;
+		this->textEditor->pathName = pathName;
 		strcpy(this->textEditor->encoding, fileDialog.encoding);
 		FileMaker fileMaker(this->textEditor, (LPCTSTR)pathName);
 		TextConverterFactory textConverterFactory(this->textEditor->document);
@@ -65,8 +67,6 @@ void SaveAsCommand::Execute() {
 			delete textConverter;
 		}
 		this->textEditor->GetParent()->SetWindowText(fileName + " - ¸Þ¸ðÀå");
-		this->textEditor->fileName = fileName;
-		this->textEditor->pathName = pathName;
 		this->textEditor->isModified = false;
 		this->textEditor->Notify();
 	}
