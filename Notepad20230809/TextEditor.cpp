@@ -723,13 +723,17 @@ BOOL TextEditor::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt) {
 	this->point = pt;
 	this->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_MOUSEWHEEL, NULL));
 	
-	
 	return TRUE;
 }
 
 void TextEditor::OnMenuClicked(UINT nID) {
 	Command* command;
 	TextEditorCommandFactory commandFactory(this);
+	
+	//로그 남기는 코드 입니다.
+	FileMaker fileMaker(this);
+	fileMaker.RecordLog(nID);
+	//
 
 	command = commandFactory.Create(nID);
 
@@ -756,12 +760,10 @@ void TextEditor::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) {
 	HScrollActionFactory hScrollActionFactory(this);
 
 	hScrollAction = hScrollActionFactory.Create(nSBCode);
-	
 	if (hScrollAction != 0) {
 		hScrollAction->OnHScroll(nSBCode, nPos, pScrollBar);
 		delete hScrollAction;
 	}
-
 }
 
 void TextEditor::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) {
@@ -769,7 +771,6 @@ void TextEditor::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) {
 	VScrollActionFactory vScrollActionFactory(this);
 
 	vScrollAction = vScrollActionFactory.Create(nSBCode);
-
 	if (vScrollAction != 0) {
 		vScrollAction->OnVScroll(nSBCode, nPos, pScrollBar);
 		delete vScrollAction;

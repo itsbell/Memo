@@ -44,10 +44,16 @@ FileMaker::FileMaker(TextEditor* textEditor)
 	this->temp = new char[128];
 	this->setting = new char[128];
 	::SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, path);
-	strcat(this->path, "\\Notepad");
+	strcat(this->path, "\\Memo");
 	mkdir(this->path);
 	sprintf(this->log, "%s\\Logs", this->path);
 	mkdir(this->log);
+	Date date = date.Today();
+	strcat(this->log, "\\");
+	strcat(this->log, (char*)date);
+	strcat(this->log, " ");
+	strcat(this->log, (char*)this->textEditor->time);
+	strcat(this->log, ".txt");
 	sprintf(this->backup, "%s\\Backup",this->path);
 	mkdir(this->backup);
 	sprintf(this->file, "%s\\%sfile.tmp", this->path, textEditor->time);
@@ -75,10 +81,16 @@ FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	this->temp = new char[128];
 	this->setting = new char[128];
 	::SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, path);
-	strcat(this->path, "\\Notepad");
+	strcat(this->path, "\\Memo");
 	mkdir(this->path);
 	sprintf(this->log, "%s\\Logs", this->path);
 	mkdir(this->log);
+	Date date = date.Today();
+	strcat(this->log, "\\");
+	strcat(this->log, (char*)date);
+	strcat(this->log, " ");
+	strcat(this->log, (char*)this->textEditor->time);
+	strcat(this->log, ".txt");
 	sprintf(this->backup, "%s\\Backup", this->path);
 	mkdir(this->backup);
 	sprintf(this->file, "%s\\%sfile.tmp", this->path, textEditor->time);
@@ -616,6 +628,82 @@ void FileMaker::SaveSetting(Font* font, bool isWrapped){
 		else {
 			fprintf(file, "FALSE\n", file);
 		}
+		fclose(file);
+	}
+}
+
+void FileMaker::RecordLog(UINT nID) {
+	FILE* file;
+	Date date = date.Today();
+	Time time = time.GetCurrent();
+	string command;
+	string log;
+
+	switch (nID) {
+		case IDM_CHAR: command = "OnCharCommand"; break;
+		case IDM_CHARSELECTING: command = "OnCharSelectingCommand"; break;
+		case IDM_CHARENTER: command = "OnCharEnterCommand"; break;
+		case IDM_CHARENTERSELECTING: command = "OnCharEnterSelectingCommand"; break;
+		case IDM_IMECOMPOSITION: command = "OnImeCompositionCommand"; break;
+		case IDM_IMECOMPOSITIONSELECTING: command = "OnImeCompositionSelectingCommand"; break;
+		case IDM_IMECHAR: command = "OnImeCharCommand"; break;
+		case IDM_BACKSPACEKEY: command = "BackSpaceKeyCommand"; break;
+		case IDM_CHARACTERBACKSPACEKEY: command = "CharacterBackSpaceKeyCommand"; break;
+		case IDM_ROWBACKSPACEKEY: command = "RowBackSpaceKeyCommand"; break;
+		case IDM_SELECTINGBACKSPACEKEY: command = "SelectingBackSpaceKeyCommand"; break;
+		case IDM_DELETEKEY: command = "DeleteKeyCommand"; break;
+		case IDM_CHARACTERDELETEKEY: command = "CharacterDeleteKeyCommand"; break;
+		case IDM_ROWDELETEKEY: command = "RowDeleteKeyCommand"; break;
+		case IDM_FINDREPLACE: command = "FindReplaceCommand"; break;
+		case IDM_REPLACEFIND: command = "ReplaceFindCommand"; break;
+		case IDM_REPLACEALL: command = "ReplaceAllCommand"; break;
+		case IDM_EDIT_UNDO: command = "UnDoCommand"; break;
+		case IDM_EDIT_REDO: command = "ReDoCommand"; break;
+		case IDM_EDIT_CUT: if (this->textEditor->document->isSelecting == true) { command = "CutCommand"; } break;
+		case IDM_EDIT_COPY: command = "CopyCommand"; break;
+		case IDM_EDIT_PASTE: 
+			if (this->textEditor->document->isSelecting == false) {
+				command = "PasteCommand"; break;
+			}
+			else {
+				command = "PasteSelectingCommand"; break;
+			}
+		case IDM_EDIT_DELETE: command = "DeleteCommand"; break;
+		case IDM_EDIT_FIND: command = "FindCommand"; break;
+		case IDM_EDIT_FINDNEXT: command = "FindNextCommand"; break;
+		case IDM_EDIT_FINDPREVIOUS: command = "FindPreviousCommand"; break;
+		case IDM_EDIT_REPLACE: command = "ReplaceCommand"; break;
+		case IDM_EDIT_MOVE: command = "MoveCommand"; break;
+		case IDM_EDIT_SELECTALL: command = "SelectAllCommand"; break;
+		case IDM_EDIT_DATETIME: 
+			if (this->textEditor->document->isSelecting == false) {
+				command = "DateTimeCommand"; break;
+			}
+			else {
+				command = "SelectingDateTimeCommand"; break;
+			}
+		case IDM_EDIT_FONT: command = "FontCommand"; break;
+		case IDM_VIEW_WRAP: command = "WrapCommand"; break;
+		case IDM_VIEW_ZOOMIN: command = "ZoomInCommand"; break;
+		case IDM_VIEW_ZOOMOUT: command = "ZoomOutCommand"; break;
+		case IDM_VIEW_RESET: command = "ZoomResetCommand"; break;
+		case IDM_LBUTTONDOWN: command = "LButtonDownCommand"; break;
+		case IDM_LBUTTONUP: command = "LButtonUpCommand"; break;
+		case IDM_RBUTTONUP: command = "RButtonUpCommand"; break;
+		case IDM_MOUSEMOVE: command = "MouseMoveCommand"; break;
+		case IDM_MOUSEWHEEL: command = "MouseWheelCommand"; break;
+		default: break;
+	}
+	if (command != "") {
+		log += (char*)date;
+		char timeFormat[11];
+		sprintf(timeFormat, " %02d:%02d:%02d ", time.GetHour(), time.GetMin(), time.GetSec());
+		log += timeFormat;
+		log += command;
+	}
+	file = fopen(this->log, "at");
+	if (file != NULL) {
+		fprintf(file, "%s\n", log.c_str());
 		fclose(file);
 	}
 }

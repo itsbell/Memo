@@ -2,6 +2,7 @@
 #ifndef _FILEMAKER_H
 #define _FILEMAKER_H
 
+#include <afx.h>
 #include <string>
 using namespace std;
 typedef signed long int Long;
@@ -28,6 +29,7 @@ class FileMaker {
 		void Remove();
 		void ConvertChar(char* buffer, Long* byte, Long index, bool start, Long* rowLength);
 		void SaveSetting(Font* font, bool isWrapped);
+		void RecordLog(UINT nID);
 
 		char* GetPath() const;
 		char* GetLog() const;
