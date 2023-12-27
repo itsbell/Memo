@@ -1,7 +1,6 @@
 //FindCommand.cpp
 #include "FindCommand.h"
 #include "TextEditor.h"
-
 #include <afxdlgs.h>
 #ifdef _DEBUG
 #define new DEBUG_NEW

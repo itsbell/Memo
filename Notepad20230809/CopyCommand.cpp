@@ -58,6 +58,7 @@ void CopyCommand::Execute() {
 				}
 				this->textEditor->unDoCommands->Push(new CopyCommand(this->textEditor, false, true));
 			}
+			//아래 조건식에 들어가는 경우가 없을것으로 생각된다. 선택영역이 종이밖이면 이미 scrolling중이고 업데이트는 되어 있을것이기 때문에
 			if (this->textEditor->isUpdated == false && end < this->textEditor->document->endPosition.row) {
 				this->textEditor->memoryController->Save();
 				this->textEditor->document->SetEnd(end);

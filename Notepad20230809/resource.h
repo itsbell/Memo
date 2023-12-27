@@ -2,6 +2,7 @@
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
 // Notepad20230325.rc에서 사용되고 있습니다.
 //
+#define MARGIN							2
 #define IDR_MENU1                       102
 #define IDD_DIALOG_ENCODING             103
 #define IDD_ENCODING                    103

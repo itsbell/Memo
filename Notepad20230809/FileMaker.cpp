@@ -12,6 +12,7 @@
 #include "Font.h"
 #include "Date.h"
 #include "Time.h"
+#include "Stack.h"
 #include "resource.h"
 
 #include <shlobj_core.h>
@@ -23,7 +24,6 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
-
 
 FileMaker::FileMaker(TextEditor* textEditor)
 	:pathName("") {
@@ -638,8 +638,10 @@ void FileMaker::RecordLog(UINT nID) {
 	Time time = time.GetCurrent();
 	string command;
 	string log;
+	Glyph* firstRow = this->textEditor->note->GetAt(0);
 
 	switch (nID) {
+
 		case IDM_CHAR: command = "OnCharCommand"; break;
 		case IDM_CHARSELECTING: command = "OnCharSelectingCommand"; break;
 		case IDM_CHARENTER: command = "OnCharEnterCommand"; break;
@@ -692,6 +694,229 @@ void FileMaker::RecordLog(UINT nID) {
 		case IDM_RBUTTONUP: command = "RButtonUpCommand"; break;
 		case IDM_MOUSEMOVE: command = "MouseMoveCommand"; break;
 		case IDM_MOUSEWHEEL: command = "MouseWheelCommand"; break;
+		
+
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			
+		case VK_LEFT: 
+				if (GetKeyState(VK_CONTROL) & 0x8000 && GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "CtrlShiftLeftKeyAction"; break;
+				}
+				else if (GetKeyState(VK_CONTROL) & 0x8000) {
+					command = "CtrlLeftKeyAction"; break;
+				}
+				else if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftLeftKeyAction"; break;
+				}
+				else if (this->textEditor->document->isSelecting == true) {
+					command = "SelectingLeftKeyAction"; break;
+				}
+				else {
+					command = "LeftKeyAction"; break;
+				}
+		case VK_RIGHT:
+				if (GetKeyState(VK_CONTROL) & 0x8000 && (GetKeyState(VK_SHIFT) & 0x8000)) {
+					command = "CtrlShiftRightKeyAction"; break;
+				}
+				else if (GetKeyState(VK_CONTROL) & 0x8000) {
+					command = "CtrlRightKeyAction"; break;
+				}
+				else if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftRightKeyAction"; break;
+				}
+				else if (this->textEditor->document->isSelecting == true) {
+					command = "SelectingRightKeyAction"; break;
+				}
+				else {
+					command = "RightKeyAction"; break;
+				}
+		case VK_DOWN:
+				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+					command = "CtrlShiftDownKeyAction"; break;
+				}
+				else if (GetKeyState(VK_CONTROL) & 0x8000) {
+					command = "CtrlDownKeyAction"; break;
+				}
+				else if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftDownKeyAction"; break;
+				}
+				else {
+					command = "DownKeyAction"; break;
+				}
+		case VK_UP:
+				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+					command = "CtrlShiftUpKeyAction"; break;
+				}
+				else if (GetKeyState(VK_CONTROL) & 0x8000) {
+					command = "CtrlUpKeyAction"; break;
+				}
+				else if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftUpKeyAction"; break;
+				}
+				else {
+					command = "UpKeyAction"; break;
+				}
+		case VK_HOME:
+				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+					command = "CtrlShiftHomeKeyAction"; break;
+				}
+				else if (GetKeyState(VK_CONTROL) & 0x8000) {
+					command = "CtrlHomeKeyAction"; break;
+				}
+				else if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftHomeKeyAction"; break;
+				}
+				else {
+					command = "HomeKeyAction"; break;
+				}
+		case VK_END:
+				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+					command = "CtrlShiftEndKeyAction"; break;
+				}
+				else if (GetKeyState(VK_CONTROL) & 0x8000) {
+					command = "CtrlEndKeyAction"; break;
+				}
+				else if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftEndKeyAction"; break;
+				}
+				else {
+					command = "EndKeyAction"; break;
+				}
+		case VK_PRIOR:
+				if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftPageUpKeyAction"; break;
+				}
+				else {
+					command = "PageUpKeyAction"; break;
+				}
+		case VK_NEXT:
+				if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftPageDownKeyAction"; break;
+				}
+				else {
+					command = "PageDownKeyAction"; break;
+				}
+		case VK_BACK:
+				if (this->textEditor->document->isSelecting == true) {
+					command = "SelectingBackSpaceKeyAction"; break;
+				}
+				else {
+					command = "BackSpaceKeyAction"; break;
+				}
+		case VK_DELETE:
+				if (this->textEditor->document->isSelecting == true) {
+					command = "SelectingDeleteKeyAction"; break;
+				}
+				else {
+					command = "DeleteKeyAction"; break;
+				}
+		case 0x4F:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlOKeyAction"; break;
+			}
+		case 0x53:
+			//12. 'CTRL + S'키를 눌렀을 때
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "CtrlShiftSKeyAction"; break;
+				}
+				else {
+					command = "CtrlSKeyAction"; break;
+				}
+			}
+		case 0x5A:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				if (this->textEditor->unDoCommands != 0 && this->textEditor->unDoCommands->GetLength() > 0) {
+					command = "CtrlZKeyAction"; break;
+				}
+			}
+		case 0x59:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				if (this->textEditor->reDoCommands != 0 && this->textEditor->reDoCommands->GetLength() > 0) {
+					command = "CtrlYKeyAction"; break;
+				}
+			}
+		case 0x43:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				if (this->textEditor->document->isSelecting == true) {
+					command = "CtrlCKeyAction"; break;
+				}
+			}
+		case 0x56:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				unsigned int priority_list = CF_TEXT;
+				if (::GetPriorityClipboardFormat(&priority_list, 1) == CF_TEXT) {
+					command = "CtrlVKeyAction"; break;
+				}
+			}
+		case 0x58:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				if (this->textEditor->document->isSelecting == true) {
+					command = "CtrlXKeyAction"; break;
+				}
+			}
+
+		case 0x46:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				if (this->textEditor->note->GetLength() >= 2 || firstRow->GetLength() >= 1) {
+					command = "CtrlFKeyAction"; break;
+				}
+			}
+		case 0x48:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				if (this->textEditor->note->GetLength() >= 2 || firstRow->GetLength() >= 1) {
+					command = "CtrlHKeyAction"; break;
+				}
+			}
+		case 0x41:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlAKeyAction"; break;
+			}
+		case VK_F3:
+			if (this->textEditor->note->GetLength() >= 2 || firstRow->GetLength() >= 1) {
+				if (GetKeyState(VK_SHIFT) & 0x8000) {
+					command = "ShiftF3KeyAction"; break;
+				}
+				else {
+					command = "F3KeyAction"; break; 
+				}
+			}
+		case VK_OEM_PLUS:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlPlusKeyAction"; break;
+			}
+
+		case VK_OEM_MINUS:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlMinusKeyAction"; break;
+			}
+		case 0x30:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "Ctrl0KeyAction"; break;
+			}
+		case 0x50:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlPKeyAction"; break;
+			}
+		case VK_F11: command = "F11KeyAction"; break;
+		case 0x47:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlGKeyAction"; break;
+			}
+		case 0x4E:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlNKeyAction"; break;
+			}
+		case 0x44:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlDKeyAction"; break;
+			}
+		case VK_F5:command = "F5KeyAction"; break;
+		case 0x57:
+			if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlWKeyAction"; break;
+			}
 		default: break;
 	}
 	if (command != "") {
@@ -700,7 +925,26 @@ void FileMaker::RecordLog(UINT nID) {
 		sprintf(timeFormat, " %02d:%02d:%02d ", time.GetHour(), time.GetMin(), time.GetSec());
 		log += timeFormat;
 		log += command;
+		file = fopen(this->log, "at");
+		if (file != NULL) {
+			fprintf(file, "%s\n", log.c_str());
+			fclose(file);
+		}
 	}
+}
+
+void FileMaker::RecordLog(string contents) {
+	FILE* file;
+	Date date = date.Today();
+	Time time = time.GetCurrent();
+	string log;
+	
+	log += (char*)date;
+	char timeFormat[11];
+	sprintf(timeFormat, " %02d:%02d:%02d ", time.GetHour(), time.GetMin(), time.GetSec());
+	log += timeFormat;
+	log += contents;
+
 	file = fopen(this->log, "at");
 	if (file != NULL) {
 		fprintf(file, "%s\n", log.c_str());

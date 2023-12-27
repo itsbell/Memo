@@ -733,7 +733,7 @@ void TextEditor::OnMenuClicked(UINT nID) {
 	//로그 남기는 코드 입니다.
 	FileMaker fileMaker(this);
 	fileMaker.RecordLog(nID);
-	//
+	
 
 	command = commandFactory.Create(nID);
 
@@ -747,6 +747,10 @@ void TextEditor::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	KeyAction* keyAction;
 	KeyActionFactory keyActionFactory(this);
 	
+	//로그 남기는 코드 입니다.
+	FileMaker fileMaker(this);
+	fileMaker.RecordLog(nChar);
+
 	keyAction = keyActionFactory.Create(nChar);
 	
 	if (keyAction != 0) {
@@ -916,6 +920,7 @@ LRESULT TextEditor::OnFindReplace(WPARAM wParam, LPARAM lParam) {
 void TextEditor::OnDestroy()
 {
 	FileMaker fm(this);
+	fm.RecordLog("OnDestroy");
 	fm.Remove();
 	fm.SaveSetting(this->font, this->isWrapped);
 }

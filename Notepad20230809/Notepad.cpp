@@ -69,7 +69,7 @@ int Notepad::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	CRect client;
 	this->GetClientRect(&client);
 
-	CRect textEditorRect(client.left , client.top, client.right, client.bottom - 30);
+	CRect textEditorRect(client.left + MARGIN, client.top - MARGIN, client.right - MARGIN, client.bottom - 30 - MARGIN);
 
 	this->textEditor = new TextEditor;
 	this->textEditor->Create(NULL, NULL, WS_CHILD | WS_VISIBLE, textEditorRect, this, IDC_TEXTEDITOR);
@@ -99,7 +99,7 @@ void Notepad::OnSize(UINT nType, int cx, int cy) {
 		this->GetClientRect(&rect);
 
 		if (this->GetMenu()->GetMenuState(IDM_VIEW_STATUSBAR, MF_BYCOMMAND) == MF_CHECKED) {
-			this->textEditor->MoveWindow(0, 0, rect.Width(), rect.Height() - 30, FALSE);
+			this->textEditor->MoveWindow(MARGIN, MARGIN, rect.Width() - MARGIN, rect.Height() - 30 - MARGIN, FALSE);
 		
 			Long magnification = 70;
 			Long cRLF = 130;
@@ -112,9 +112,8 @@ void Notepad::OnSize(UINT nType, int cx, int cy) {
 			this->sb->SetPaneInfo(3, IDS_ENCODING, SBPS_NORMAL, encoding);
 		}
 		else {
-			this->textEditor->MoveWindow(0, 0, rect.Width(), rect.Height(), TRUE);
+			this->textEditor->MoveWindow(MARGIN, MARGIN, rect.Width() - MARGIN, rect.Height() - MARGIN, TRUE);
 		}
-		
 	}
 }
 

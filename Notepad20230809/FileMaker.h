@@ -30,6 +30,7 @@ class FileMaker {
 		void ConvertChar(char* buffer, Long* byte, Long index, bool start, Long* rowLength);
 		void SaveSetting(Font* font, bool isWrapped);
 		void RecordLog(UINT nID);
+		void RecordLog(string log);
 
 		char* GetPath() const;
 		char* GetLog() const;

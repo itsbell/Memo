@@ -122,6 +122,12 @@ void DateTimeCommand::Execute() {
 			this->textEditor->isScrolling = false;
 		}
 		this->textEditor->document->Move(this->row, this->column);
+		//log
+		FileMaker fileMaker(this->textEditor);
+		CString log;
+		log.Format("¤¤ DateTime / Execute / PasteFromFile / RowNumber: %d, startPointer: %d, endPointer %d\n", this->textEditor->document->GetRowNumber(), this->startPointer, this->endPointer);
+		fileMaker.RecordLog((LPCTSTR)log);
+		//
 		this->textEditor->document->PasteFromFile(fileMaker.GetPaste(), this->startPointer, this->endPointer, this->textEditor->characterMetrics, this->textEditor->isWrapped, this->textEditor->rect.right);
 		this->textEditor->current = this->textEditor->note->GetAt(this->textEditor->note->GetCurrent() - 1);
 	}

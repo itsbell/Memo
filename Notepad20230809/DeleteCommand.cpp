@@ -178,7 +178,13 @@ void DeleteCommand::Unexecute() {
 	}
 	this->textEditor->document->Move(this->startPosition.row, this->startPosition.column);
 
+	//log
 	FileMaker fileMaker(this->textEditor);
+	CString log;
+	log.Format("¤¤ DeleteCommand / Unexecute / PasteFromFile / RowNumber: %d, startPointer: %d, endPointer %d\n", this->textEditor->document->GetRowNumber(), this->startPointer, this->endPointer);
+	fileMaker.RecordLog((LPCTSTR)log);
+	//
+
 	this->textEditor->document->PasteFromFile(fileMaker.GetDel(), this->startPointer, this->endPointer, this->textEditor->characterMetrics, this->textEditor->isWrapped, this->textEditor->rect.right);
 	this->textEditor->document->Select(this->startPosition, this->endPosition);
 	this->textEditor->document->SetSelectingInfo(this->startPosition, this->endPosition);
