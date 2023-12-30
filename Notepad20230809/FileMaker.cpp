@@ -42,7 +42,6 @@ FileMaker::FileMaker(TextEditor* textEditor)
 	this->del = new char[128];
 	this->paste = new char[128];
 	this->temp = new char[128];
-	this->setting = new char[128];
 	::SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, path);
 	strcat(this->path, "\\Memo");
 	mkdir(this->path);
@@ -60,7 +59,6 @@ FileMaker::FileMaker(TextEditor* textEditor)
 	sprintf(this->del, "%s\\%sdel.tmp", this->path, textEditor->time);
 	sprintf(this->paste, "%s\\%spaste.tmp", this->path, textEditor->time);
 	sprintf(this->temp, "%s\\%stemp.tmp", this->path, textEditor->time);
-	sprintf(this->setting, "%s\\setting.tmp", this->path);
 }
 FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	:pathName(pathName){
@@ -79,7 +77,6 @@ FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	this->del = new char[128];
 	this->paste = new char[128];
 	this->temp = new char[128];
-	this->setting = new char[128];
 	::SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, 0, path);
 	strcat(this->path, "\\Memo");
 	mkdir(this->path);
@@ -97,11 +94,9 @@ FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	sprintf(this->del, "%s\\%sdel.tmp", this->path, textEditor->time);
 	sprintf(this->paste, "%s\\%spaste.tmp", this->path, textEditor->time);
 	sprintf(this->temp, "%s\\%stemp.tmp", this->path, textEditor->time);
-	sprintf(this->setting, "%s\\setting.tmp", this->path);
 }
 
 FileMaker::~FileMaker() {
-	
 	if (this->path != 0) {
 		delete this->path;
 	}
@@ -122,9 +117,6 @@ FileMaker::~FileMaker() {
 	}
 	if (this->temp != 0) {
 		delete this->temp;
-	}
-	if (this->setting != 0) {
-		delete this->setting;
 	}
 }
 
@@ -612,36 +604,15 @@ void FileMaker::ConvertChar(char* buffer, Long* byte, Long index, bool start, Lo
 	}
 }
 
-void FileMaker::SaveSetting(Font* font, bool isWrapped){
-	FILE* file;
-	LOGFONT lf = font->GetLogfont();
-
-	file = fopen(this->setting, "wt");
-	if (file != NULL) {
-		fprintf(file, "%05d %05d %05d %05d %05d %05d %05d %05d %05d %05d %05d %05d %05d\n",
-			lf.lfHeight, lf.lfWidth, lf.lfEscapement, lf.lfOrientation, lf.lfWeight, lf.lfItalic, lf.lfUnderline,
-			lf.lfStrikeOut, lf.lfCharSet, lf.lfOutPrecision, lf.lfClipPrecision, lf.lfQuality, lf.lfPitchAndFamily);
-		fprintf(file, "%s\n", lf.lfFaceName);
-		if (isWrapped) {
-			fprintf(file, "TRUE\n", file);
-		}
-		else {
-			fprintf(file, "FALSE\n", file);
-		}
-		fclose(file);
-	}
-}
-
 void FileMaker::RecordLog(UINT nID) {
 	FILE* file;
 	Date date = date.Today();
 	Time time = time.GetCurrent();
 	string command;
 	string log;
-	Glyph* firstRow = this->textEditor->note->GetAt(0);
+	Glyph* row;
 
 	switch (nID) {
-
 		case IDM_CHAR: command = "OnCharCommand"; break;
 		case IDM_CHARSELECTING: command = "OnCharSelectingCommand"; break;
 		case IDM_CHARENTER: command = "OnCharEnterCommand"; break;
@@ -694,7 +665,7 @@ void FileMaker::RecordLog(UINT nID) {
 		case IDM_RBUTTONUP: command = "RButtonUpCommand"; break;
 		case IDM_MOUSEMOVE: command = "MouseMoveCommand"; break;
 		case IDM_MOUSEWHEEL: command = "MouseWheelCommand"; break;
-		
+		case IDM_ONCREATE: command = "OnCreateMessage"; break;
 
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -859,13 +830,15 @@ void FileMaker::RecordLog(UINT nID) {
 
 		case 0x46:
 			if (GetKeyState(VK_CONTROL) & 0x8000) {
-				if (this->textEditor->note->GetLength() >= 2 || firstRow->GetLength() >= 1) {
+				row = this->textEditor->note->GetAt(0);
+				if (this->textEditor->note->GetLength() >= 2 || row->GetLength() >= 1) {
 					command = "CtrlFKeyAction"; break;
 				}
 			}
 		case 0x48:
 			if (GetKeyState(VK_CONTROL) & 0x8000) {
-				if (this->textEditor->note->GetLength() >= 2 || firstRow->GetLength() >= 1) {
+				row = this->textEditor->note->GetAt(0);
+				if (this->textEditor->note->GetLength() >= 2 || row->GetLength() >= 1) {
 					command = "CtrlHKeyAction"; break;
 				}
 			}
@@ -874,7 +847,8 @@ void FileMaker::RecordLog(UINT nID) {
 				command = "CtrlAKeyAction"; break;
 			}
 		case VK_F3:
-			if (this->textEditor->note->GetLength() >= 2 || firstRow->GetLength() >= 1) {
+			row = this->textEditor->note->GetAt(0);
+			if (this->textEditor->note->GetLength() >= 2 || row->GetLength() >= 1) {
 				if (GetKeyState(VK_SHIFT) & 0x8000) {
 					command = "ShiftF3KeyAction"; break;
 				}

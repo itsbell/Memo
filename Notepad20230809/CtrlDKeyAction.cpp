@@ -8,6 +8,12 @@
 #include "Font.h"
 #pragma warning (disable : 4996)
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
 CtrlDKeyAction::CtrlDKeyAction(TextEditor* textEditor) {
 	this->textEditor = textEditor;
 }
@@ -51,12 +57,6 @@ void CtrlDKeyAction::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	
 	this->textEditor->MessageBox(info, "Infomation");
 
-	CString font;
-	LOGFONT lf = this->textEditor->font->GetLogfont();
-	font.Format("lfHeight: %05d\nlfWidth: %05d\nlfEscapement: %05d\nlfOrientation: %05d\nlfWeight: %05d\nlfItalic: %05d\nlfUnderline: %05d\n"
-		"lfStrikeOut: %05d\nlfCharSet: %05d\nlfOutPrecision: %05d\nlfClipPrecision: %05d\nlfQuality: %05d\nlfPitchAndFamily: %05d\nlfFaceName: %s",
-		lf.lfHeight, lf.lfWeight, lf.lfEscapement, lf.lfOrientation, lf.lfWeight, lf.lfItalic, lf.lfUnderline, lf.lfStrikeOut, lf.lfCharSet, lf.lfOutPrecision, lf.lfClipPrecision, lf.lfQuality, lf.lfPitchAndFamily, lf.lfFaceName);
-	this->textEditor->MessageBox(font, "Font");
 
 #endif
 }

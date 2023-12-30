@@ -54,6 +54,8 @@
 #include "MouseMoveCommand.h"
 #include "MouseWheelCommand.h"
 
+#include "OnCreateMessage.h"
+
 #include "resource.h"
 
 #ifdef _DEBUG
@@ -243,6 +245,10 @@ Command* TextEditorCommandFactory::Create(UINT nID) {
 
 	else if (nID == IDM_MOUSEWHEEL) {
 		command = new MouseWheelCommand(this->textEditor);
+	}
+
+	else if (nID == IDM_ONCREATE) {
+		command = new OnCreateMessage(this->textEditor);
 	}
 
 	return command;

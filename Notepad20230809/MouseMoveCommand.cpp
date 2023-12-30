@@ -9,6 +9,12 @@
 #include "Position.h"
 #include "Glyph.h"
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+
+#endif
 MouseMoveCommand::MouseMoveCommand(TextEditor* textEditor) {
 	this->textEditor = textEditor;
 }

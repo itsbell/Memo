@@ -1,16 +1,18 @@
 //WrapCommand.cpp
 #include "WrapCommand.h"
-#include "TextEditor.h"
-#include "Glyph.h"
-#include <afxwin.h>
-#include "ScrollController.h"
-#include "HorizontalScroll.h"
-#include "VerticalScroll.h"
-#include "FileMaker.h"
-#include "MemoryController.h"
+
 #include "Document.h"
-#include "Stack.h"
+#include "FileMaker.h"
+#include "Glyph.h"
+#include "HorizontalScroll.h"
+#include "MemoryController.h"
+#include "Registry.h"
 #include "resource.h"
+#include "ScrollController.h"
+#include "Stack.h"
+#include "TextEditor.h"
+#include "VerticalScroll.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -29,6 +31,8 @@ void WrapCommand::Execute() {
 	CMenu* pMenu = this->textEditor->GetParent()->GetMenu();
 	UINT state = pMenu->GetMenuState(IDM_VIEW_WRAP, MF_BYCOMMAND);
 	FileMaker fm(this->textEditor);
+	Registry* registry = new Registry;
+
 	//1. 종이에서 선택해제하다.
 	this->textEditor->isMoving = false;
 	this->textEditor->document->isSelecting = false;	
@@ -44,6 +48,7 @@ void WrapCommand::Execute() {
 		this->textEditor->document->Wrap(this->textEditor->rect.right, this->textEditor->characterMetrics, &fm);
 		//3.3. 자동줄바꿈 상태를 고치다.
 		this->textEditor->isWrapped = true;
+		registry->SetIsWrapped(true);
 	}
 
 	//4. 자동줄바꿈 메뉴가 체크된 상태이면
@@ -54,6 +59,7 @@ void WrapCommand::Execute() {
 		this->textEditor->document->UnWrap(this->textEditor->characterMetrics, &fm);
 		//4.3. 자동줄바꿈 상태를 고치다.
 		this->textEditor->isWrapped = false;
+		registry->SetIsWrapped(false);
 	}
 
 	//5. 종이에서 처음으로 이동하다.
@@ -85,6 +91,10 @@ void WrapCommand::Execute() {
 	this->textEditor->scrollController->verticalScroll->SetPosition(0);
 	this->textEditor->Notify();
 	this->textEditor->Invalidate(FALSE);
+	
+	if (registry != 0) {
+		delete registry;
+	}
 }
 
 void WrapCommand::Unexecute() {

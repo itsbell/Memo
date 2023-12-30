@@ -24,7 +24,7 @@
     <ProjectGuid>{7f956491-d44c-4890-b76e-80d325209389}</ProjectGuid>
     <RootNamespace>Notepad20230809</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>MEMO</ProjectName>
+    <ProjectName>Memo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -239,6 +239,7 @@
     <ClCompile Include="OnCharEnterCommand.cpp" />
     <ClCompile Include="OnCharEnterSelectingCommand.cpp" />
     <ClCompile Include="OnCharSelectingCommand.cpp" />
+    <ClCompile Include="OnCreateMessage.cpp" />
     <ClCompile Include="OnImeCharCommand.cpp" />
     <ClCompile Include="OnImeCompositionCommand.cpp" />
     <ClCompile Include="OnImeCompositionSelectingCommand.cpp" />
@@ -258,6 +259,7 @@
     <ClCompile Include="PrintTextOutVisitor.cpp" />
     <ClCompile Include="RButtonUpCommand.cpp" />
     <ClCompile Include="ReDoCommand.cpp" />
+    <ClCompile Include="Registry.cpp" />
     <ClCompile Include="ReplaceAllCommand.cpp" />
     <ClCompile Include="ReplaceCommand.cpp" />
     <ClCompile Include="ReplaceCurrentCommand.cpp" />
@@ -427,6 +429,7 @@
     <ClInclude Include="OnCharEnterCommand.h" />
     <ClInclude Include="OnCharEnterSelectingCommand.h" />
     <ClInclude Include="OnCharSelectingCommand.h" />
+    <ClInclude Include="OnCreateMessage.h" />
     <ClInclude Include="OnImeCharCommand.h" />
     <ClInclude Include="OnImeCompositionCommand.h" />
     <ClInclude Include="OnImeCompositionSelectingCommand.h" />
@@ -447,6 +450,7 @@
     <ClInclude Include="PrintTextOutVisitor.h" />
     <ClInclude Include="RButtonUpCommand.h" />
     <ClInclude Include="ReDoCommand.h" />
+    <ClInclude Include="Registry.h" />
     <ClInclude Include="ReplaceAllCommand.h" />
     <ClInclude Include="ReplaceCommand.h" />
     <ClInclude Include="ReplaceCurrentCommand.h" />

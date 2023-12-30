@@ -28,7 +28,6 @@ class FileMaker {
 		void SaveUTF16(TextConverter* textConverter);
 		void Remove();
 		void ConvertChar(char* buffer, Long* byte, Long index, bool start, Long* rowLength);
-		void SaveSetting(Font* font, bool isWrapped);
 		void RecordLog(UINT nID);
 		void RecordLog(string log);
 
@@ -39,7 +38,6 @@ class FileMaker {
 		char* GetDel() const;
 		char* GetPaste() const;
 		char* GetTemp() const;
-		char* GetSetting() const;
 		
 	private:
 		char* path;
@@ -49,7 +47,6 @@ class FileMaker {
 		char* del;
 		char* paste;
 		char* temp;
-		char* setting;
 		unsigned char utf8BOM[3];
 		unsigned char littleEndianBOM[2];
 		unsigned char bigEndianBOM[2];
@@ -82,10 +79,6 @@ inline char* FileMaker::GetPaste() const {
 
 inline char* FileMaker::GetTemp() const {
 	return this->temp;
-}
-
-inline char* FileMaker::GetSetting() const {
-	return this->setting;
 }
 
 #endif //_FILEMAKER_H

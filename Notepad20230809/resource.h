@@ -84,7 +84,8 @@
 #define IDM_RBUTTONUP                   40051
 #define IDM_MOUSEMOVE                   40052
 #define IDM_MOUSEWHEEL                  40053
-#define IDM_MAX                         40054
+#define IDM_ONCREATE					40054
+#define IDM_MAX                         40055
 #define SF_ALL                          50000
 #define SF_NORMAL                       50001
 #define SF_COMPARE                      50002

@@ -36,14 +36,6 @@
 
 #include "Position.h"
 #include "FileMaker.h"
-#include "TextConverter.h"
-#include "TextConverterFactory.h"
-#include "ANSIConverter.h"
-#include "UTF8Converter.h"
-#include "UTF8BOMConverter.h"
-#include "UTF16LEConverter.h"
-#include "UTF16BEConverter.h"
-#include "Time.h"
 #include "resource.h"
 
 
@@ -263,233 +255,9 @@ void TextEditor::GetBack() {
 
 int TextEditor::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	CWnd::OnCreate(lpCreateStruct);
-	Time time = time.GetCurrent();
-	sprintf(this->time, "%02d%02d%02d%03d", time.GetHour(), time.GetMin(), time.GetSec(), time.GetMillisec());
-
-	bool isWrapped = false;
-	Long i = 0;
-	FileMaker fm(this);
-	FILE* file;
-	LOGFONT lf;
-	TCHAR check[6];
-
-	fm.Remove();
-	file = fopen(fm.GetSetting(), "rt");
-	if (file != NULL) {
-		fscanf(file, "%d %d %d %d %d %d %d %d %d %d %d %d %d",
-			&(lf.lfHeight),
-			&(lf.lfWidth),
-			&(lf.lfEscapement),
-			&(lf.lfOrientation),
-			&(lf.lfWeight),
-			&(lf.lfItalic),
-			&(lf.lfUnderline),
-			&(lf.lfStrikeOut),
-			&(lf.lfCharSet),
-			&(lf.lfOutPrecision),
-			&(lf.lfClipPrecision),
-			&(lf.lfQuality),
-			&(lf.lfPitchAndFamily));
-		fseek(file, 2, SEEK_CUR);
-		fgets(lf.lfFaceName, sizeof(lf.lfFaceName), file);
-		while (lf.lfFaceName[i] != '\n') {
-			i++;
-		}
-		lf.lfFaceName[i] = '\0';
-		fscanf(file, "%s", check);
-		if (strcmp(check, "TRUE") == 0) {
-			isWrapped = true;
-		}
-		fclose(file);
-	}
-	else {
-		//글꼴 초기값
-		lf.lfHeight = -26;
-		lf.lfWidth = 0;
-		lf.lfEscapement = 0;
-		lf.lfOrientation = 0;
-		lf.lfWeight = 700;
-		lf.lfItalic = FALSE;
-		lf.lfUnderline = FALSE;
-		lf.lfStrikeOut = FALSE;
-		lf.lfCharSet = DEFAULT_CHARSET;
-		lf.lfOutPrecision = OUT_DEFAULT_PRECIS;
-		lf.lfClipPrecision = CLIP_DEFAULT_PRECIS;
-		lf.lfQuality = DEFAULT_QUALITY;
-		lf.lfPitchAndFamily = DEFAULT_PITCH;
-		strcpy(lf.lfFaceName, _T("맑은 고딕"));
-	}
-
-	Glyph* glyph;
-	GlyphFactory glyphFactory;
-
-	strcpy(this->encoding, "UTF-8");
-	this->zoomController = new ZoomController;
-
-	// 폰트를 생성하여 TextEditor에 저장하다.
-	this->font = new Font(lf);
-
-	// 현재 DC와 폰트에 맞는 CharacterMetrics를 생성하여 TextEditor에 저장하다.
-	this->characterMetrics = new CharacterMetrics(this->GetDC(),this->font, this->zoomController);	
-
-	// 기존 윈도우 스타일에 수평,수직 스크롤 스타일을 추가하다.
-	LONG style;
-	style = ::GetWindowLong(this->m_hWnd, GWL_STYLE);
-	style |= WS_VSCROLL | WS_HSCROLL;
-	::SetWindowLong(this->m_hWnd, GWL_STYLE, style);
-
-	// MemoryController를 만들다.
-	this->memoryController = new MemoryController(this);
-	// ScrollController를 만들다.
-	this->scrollController = new ScrollController(this);
-	// statusBarController를 만들다.
-	this->statusBarController = new StatusBarController(this);
-
-	// 종이를 만들다.
-	this->document = new Document;
-	glyph = glyphFactory.Create((char*)"\0");
-	this->note = glyph;
-	this->document->paper = glyph;
-
-	// 줄을 추가하다.
-	glyph = glyphFactory.Create((char*)"\r\n");
-	i = this->note->Add(glyph);
-	this->current = this->note->GetAt(i);
 	
-	//페이지설정 다이얼로그 초기설정
-	this->psd.ptPaperSize.x = 21000;
-	this->psd.ptPaperSize.y = 29700;
-	this->psd.rtMargin.top = 1000;
-	this->psd.rtMargin.left = 1000;
-	this->psd.rtMargin.right = 1000;
-	this->psd.rtMargin.bottom = 1000;
-	this->psd.lpfnPagePaintHook = NULL;
-
-	fm.New();
+	this->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_ONCREATE, NULL));
 	
-	this->longestRow = 1;
-	this->isWrapped = isWrapped;
-	this->isUpdated = true;
-	this->document->SetStart(1);
-	this->document->SetEnd(1);
-	this->document->SetLength(1);
-
-	//txt파일 열기 시 불러오기가 되는 임시코드
-	LPSTR commandLine;
-	commandLine = ::GetCommandLine();
-	bool open = false;
-	Long start;
-	Long end;
-	CString pathName;
-	CString fileName;
-	i = 0;
-
-	while (commandLine[i] != '\0' && open == false) {
-		if (commandLine[i] == '.') {
-			if (commandLine[i + 1] == 't' && commandLine[i + 2] == 'x' && commandLine[i + 3] == 't') {
-				end = i + 3;
-				i--;
-				while (commandLine[i] != '\\') {
-					i--;
-				}
-				i++;
-				while (commandLine[i] != '.') {
-					fileName += commandLine[i];
-					i++;
-				}
-				while (commandLine[i] != '\"') {
-					i--;
-				}
-				start = i + 1;
-				open = true;
-			}
-		}
-		i++;
-	}
-	if (open == true) {
-		i = start;
-		while (i <= end) {
-			pathName += commandLine[i];
-			i++;
-		}
-		if (this->note != 0) {
-			delete this->note;
-		}
-		this->note = new Paper;
-		this->document->paper = this->note;
-		memset(this->encoding, 0, 16);
-		strcpy(this->encoding, "자동 검색");
-
-		CFile file;
-		if (file.Open(pathName, CFile::modeRead)) {
-			Long fileLength = (Long)file.GetLength();
-			TCHAR* pData = new TCHAR[fileLength + 2];
-			memset(pData, 0, fileLength + 2);
-			LONG readSize = file.Read(pData, fileLength);
-			if (readSize == fileLength) {
-				TextConverterFactory textConverterFactory(this->document);
-				TextConverter* textConverter;
-				textConverter = textConverterFactory.Create(pData, fileLength);
-				char* buffer = textConverter->Decode();
-				fm.Remove();
-				Long count = fm.Make(buffer);
-				this->document->SetLength(count);
-				if (dynamic_cast<ANSIConverter*>(textConverter)) {
-					strcpy(this->encoding, "ANSI");
-				}
-				else if (dynamic_cast<UTF8Converter*>(textConverter)) {
-					strcpy(this->encoding, "UTF-8");
-				}
-				else if (dynamic_cast<UTF8BOMConverter*>(textConverter)) {
-					strcpy(this->encoding, "UTF-8(BOM)");
-				}
-				else if (dynamic_cast<UTF16LEConverter*>(textConverter)) {
-					strcpy(this->encoding, "UTF-16 LE");
-				}
-				else if (dynamic_cast<UTF16BEConverter*>(textConverter)) {
-					strcpy(this->encoding, "UTF-16 BE");
-				}
-				if (textConverter != 0) {
-					delete textConverter;
-				}
-				if (pData != 0) {
-					delete[] pData;
-				}
-				if (buffer != 0) {
-					delete[] buffer;
-				}
-			}
-		}
-		file.Close();
-		if (this->isWrapped) {
-			this->document->LoadToMemory(1, OPTIMAL, this->characterMetrics, this->rect.right, &fm);
-		}
-		else {
-			this->document->LoadToMemory(1, OPTIMAL, this->characterMetrics, &fm);
-		}
-		this->note->First();
-		this->current = this->note->GetAt(0);
-		this->current->First();
-		this->document->SetStart(1);
-		this->document->SetEnd(this->note->GetRowCount());
-		this->isUpdated = true;
-		this->isScrolling = false;
-		this->document->isSelecting = false;
-		this->GetParent()->SetWindowText(fileName + " - 메모장");
-		this->fileName = fileName;
-		this->pathName = pathName;
-		this->isModified = false;
-		this->x = 0;
-		this->y = 0;
-		this->isMoving = false;
-		this->destination = 0;
-		this->scrollController->UpdateFileVSInfo(true);
-		this->scrollFlags = SF_ALL;
-		this->scrollController->UpdateMaximum();
-		this->scrollController->UpdatePosition(this->characterMetrics);
-		this->Notify();
-		this->Invalidate(FALSE);
-	}
 	return 0;
 }
 
@@ -917,10 +685,9 @@ LRESULT TextEditor::OnFindReplace(WPARAM wParam, LPARAM lParam) {
 }
 
 
-void TextEditor::OnDestroy()
-{
+void TextEditor::OnDestroy() {
 	FileMaker fm(this);
+
 	fm.RecordLog("OnDestroy");
 	fm.Remove();
-	fm.SaveSetting(this->font, this->isWrapped);
 }

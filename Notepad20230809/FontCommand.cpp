@@ -1,22 +1,22 @@
 //FontCommand.cpp
 #include "FontCommand.h"
 
-
+#include "TextEditor.h"
+#include "CharacterMetrics.h"
+#include "Document.h"
+#include "FileMaker.h"
+#include "Font.h"
+#include "Glyph.h"
+#include "MemoryController.h"
+#include "MultiByteCharacter.h"
+#include "Registry.h"
+#include "resource.h"
+#include "Scroll.h"
+#include "ScrollController.h"
+#include "SingleByteCharacter.h"
+#include <afxdlgs.h>
 #include <string>
 using namespace std;
-#include "TextEditor.h"
-#include "Font.h"
-#include "CharacterMetrics.h"
-#include "Glyph.h"
-#include "SingleByteCharacter.h"
-#include "MultiByteCharacter.h"
-#include "Document.h"
-#include "ScrollController.h"
-#include "resource.h"
-#include "MemoryController.h"
-#include "FileMaker.h"
-#include "Scroll.h"
-#include <afxdlgs.h>
 #pragma warning (disable:4996)
 
 #ifdef _DEBUG
@@ -60,6 +60,14 @@ void FontCommand::Execute() {
 		else if (lf.lfHeight > -2) {
 			lf.lfHeight = -2;
 		}
+
+		//레지스트리 쓰기
+		Registry* registry = new Registry;
+		registry->SetFont(&lf);
+		if (registry != 0) {
+			delete registry;
+		}
+
 		//2.2. textEditor의 font와 characterMetrics를 다시 생성하다.
 		if (this->textEditor->font != 0 && this->textEditor->characterMetrics != 0) {
 			delete this->textEditor->font;

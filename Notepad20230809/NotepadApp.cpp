@@ -8,6 +8,12 @@
 #include <crtdbg.h>
 #endif
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
 BOOL NotepadApp::InitInstance() {
 #ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -17,6 +23,9 @@ BOOL NotepadApp::InitInstance() {
 
 	//1. CFrameWnd 객체 할당
 	Notepad* pFrame = new Notepad;
+	
+	//레지스트리 키 생성
+	this->SetRegistryKey("Memo");
 
 	//2. 프레임윈도우 생성	
 	pFrame->Create(0, "제목없음 - 메모장");
