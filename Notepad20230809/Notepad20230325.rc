@@ -94,7 +94,7 @@ BEGIN
             MENUITEM "축소\tCtrl+Minus",              IDM_VIEW_ZOOMOUT
             MENUITEM "기본 확대 /축소 복원\tCtrl+0",        IDM_VIEW_RESET
         END
-        MENUITEM "상태 표시줄",                      IDM_VIEW_STATUSBAR, CHECKED
+        MENUITEM "상태 표시줄",                      IDM_VIEW_STATUSBAR
         MENUITEM "자동 줄 바꿈",                     IDM_VIEW_WRAP
     END
     POPUP "도움말"

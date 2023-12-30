@@ -1,13 +1,15 @@
 //Notepad.cpp
 #include "Notepad.h"
 
-#include "TextEditor.h"
-#include "resource.h"
 #include "Command.h"
-#include "NotepadCommandFactory.h"
-#include "Glyph.h"
-#include "Stack.h"
 #include "Document.h"
+#include "Glyph.h"
+#include "NotepadCommandFactory.h"
+#include "Registry.h"
+#include "resource.h"
+#include "Stack.h"
+#include "TextEditor.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -61,11 +63,13 @@ Notepad::~Notepad() {
 
 int Notepad::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	CFrameWnd::OnCreate(lpCreateStruct);
-
-	HICON hIcon = ::LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDI_ICON_MEMO));
-	this->SetIcon(hIcon, TRUE);
-
+	
+	HICON hIcon;
 	CRect client;
+	Registry registry;
+	
+	hIcon = ::LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDI_ICON_MEMO));
+	this->SetIcon(hIcon, TRUE);
 	this->GetClientRect(&client);
 
 	CRect textEditorRect(client.left + MARGIN, client.top - MARGIN, client.right - MARGIN, client.bottom - 30 - MARGIN);
@@ -73,15 +77,21 @@ int Notepad::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	this->textEditor = new TextEditor;
 	this->textEditor->Create(NULL, NULL, WS_CHILD | WS_VISIBLE, textEditorRect, this, IDC_TEXTEDITOR);
 
-	//상태표시줄
+	//상태표시줄은 일단 만들고 설정에 따라 숨기거나 보여준다.
 	this->sb = new CStatusBar;
 	this->sb->Create(this, WS_CHILD | WS_VISIBLE | CBRS_BOTTOM, AFX_IDW_STATUS_BAR);
 	this->sb->SetIndicators(indicators, 4);
 	this->menu.LoadMenuA(IDR_MENU1);
 	this->SetMenu(&this->menu);
-	if (this->textEditor->isWrapped) {
+
+	if (registry.GetOnStatusBar() == true) {
+		this->menu.CheckMenuItem(IDM_VIEW_STATUSBAR, MF_CHECKED);
+	}
+	if (registry.GetOnWordWrap() == true) {
+		this->textEditor->isWrapped = true;
 		this->menu.CheckMenuItem(IDM_VIEW_WRAP, MF_CHECKED);
 	}
+
 	this->textEditor->SetFocus();
 
 	return 0;
@@ -98,13 +108,13 @@ void Notepad::OnSize(UINT nType, int cx, int cy) {
 		this->GetClientRect(&rect);
 
 		if (this->GetMenu()->GetMenuState(IDM_VIEW_STATUSBAR, MF_BYCOMMAND) == MF_CHECKED) {
-			this->textEditor->MoveWindow(MARGIN, MARGIN, rect.Width() - MARGIN, rect.Height() - 30 - MARGIN, FALSE);
+			this->textEditor->MoveWindow(MARGIN, MARGIN, rect.Width() - MARGIN, rect.Height() - STATUSBARHEIGHT - MARGIN, FALSE);
 		
 			Long magnification = 70;
 			Long cRLF = 130;
 			Long encoding = 120;
 			Long currentPosition = rect.Width() - magnification - cRLF - encoding;
-			this->sb->MoveWindow(rect.left, rect.bottom - 30, rect.Width(), 30);
+			this->sb->MoveWindow(rect.left, rect.bottom - STATUSBARHEIGHT, rect.Width(), STATUSBARHEIGHT);
 			this->sb->SetPaneInfo(0, IDS_CURRENT, SBPS_NORMAL, currentPosition);
 			this->sb->SetPaneInfo(1, IDS_MAGNIFICATION, SBPS_NORMAL, magnification);
 			this->sb->SetPaneInfo(2, IDS_CRLF, SBPS_NORMAL, cRLF);
@@ -254,6 +264,8 @@ void Notepad::OnUpdateMenu(CCmdUI* pCmdUI) {
 void Notepad::OnClose(){	
 	this->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_FILE_CLOSE, NULL));
 	if (this->exit) {
+		Registry registry;
+		registry.SetClientPosition(this);
 		CFrameWnd::OnClose();
 	}
 }

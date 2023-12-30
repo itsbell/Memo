@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:SetupMEMO"
+"ProjectName" = "8:SetupMemo"
 "LanguageId" = "3:1042"
 "CodePage" = "3:949"
 "UILanguageId" = "3:1042"
@@ -1658,7 +1658,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_51E5FA06EC904F479F237FF241E194B1"
             {
-            "SourcePath" = "8:..\\x64\\Debug\\MEMO.exe"
+            "SourcePath" = "8:..\\x64\\Debug\\Memo.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_94B07A5B5F2D4067874D73D01CB91F04"

@@ -59,7 +59,7 @@ void OnCreateMessage::Execute() {
 	else {
 		this->textEditor->font = new Font;
 	}
-	this->textEditor->isWrapped = registry->GetIsWrapped();
+	this->textEditor->isWrapped = registry->GetOnWordWrap();
 
 	// 기존 윈도우스타일에 수평,수직 스크롤 스타일을 추가하다.
  	style = ::GetWindowLong(this->textEditor->m_hWnd, GWL_STYLE);

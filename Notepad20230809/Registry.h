@@ -3,6 +3,7 @@
 #define _REGISTRY_H
 
 #include <afxwin.h>
+class Notepad;
 
 class Registry {
 
@@ -11,9 +12,13 @@ class Registry {
 		~Registry();
 
 		bool GetFont(LOGFONT* lf);
-		bool GetIsWrapped();
+		bool GetOnWordWrap();
+		bool GetOnStatusBar();
+		bool GetClientPosition(RECT* rect);
 		bool SetFont(LOGFONT* lf);
-		bool SetIsWrapped(bool isWrapped);
+		bool SetOnWordWrap(bool onWordWrap);
+		bool SetOnStatusBar(bool onStatusBar);
+		bool SetClientPosition(Notepad* notepad);
 
 };
 

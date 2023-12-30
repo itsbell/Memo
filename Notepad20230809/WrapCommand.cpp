@@ -48,7 +48,7 @@ void WrapCommand::Execute() {
 		this->textEditor->document->Wrap(this->textEditor->rect.right, this->textEditor->characterMetrics, &fm);
 		//3.3. 자동줄바꿈 상태를 고치다.
 		this->textEditor->isWrapped = true;
-		registry->SetIsWrapped(true);
+		registry->SetOnWordWrap(true);
 	}
 
 	//4. 자동줄바꿈 메뉴가 체크된 상태이면
@@ -59,7 +59,7 @@ void WrapCommand::Execute() {
 		this->textEditor->document->UnWrap(this->textEditor->characterMetrics, &fm);
 		//4.3. 자동줄바꿈 상태를 고치다.
 		this->textEditor->isWrapped = false;
-		registry->SetIsWrapped(false);
+		registry->SetOnWordWrap(false);
 	}
 
 	//5. 종이에서 처음으로 이동하다.

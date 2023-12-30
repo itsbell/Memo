@@ -1,5 +1,6 @@
 //Registry.cpp
 #include "Registry.h"
+#include "Notepad.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -15,6 +16,18 @@ Registry::~Registry() {
 
 }
 
+bool Registry::GetClientPosition(RECT* rect) {
+	bool ret;
+	double* pData;
+	UINT bytes;
+
+	ret = AfxGetApp()->GetProfileBinary("Setting", "clientPosition", (LPBYTE*)&pData, &bytes);
+	memcpy(rect, pData, bytes);
+	delete[] pData;
+
+	return ret;
+}
+
 bool Registry::GetFont(LOGFONT* lf) {
 	bool ret;
 	double* pData;
@@ -27,12 +40,30 @@ bool Registry::GetFont(LOGFONT* lf) {
 	return ret;
 }
 
-bool Registry::GetIsWrapped() {
-	bool isWrapped;
+bool Registry::GetOnWordWrap() {
+	bool onWordWrap;
 
-	isWrapped = AfxGetApp()->GetProfileInt("Setting", "isWrapped", 0);
+	onWordWrap = AfxGetApp()->GetProfileInt("Setting", "onWordWrap", 0);
 
-	return isWrapped;
+	return onWordWrap;
+}
+
+bool Registry::GetOnStatusBar() {
+	bool onStatusBar;
+
+	onStatusBar = AfxGetApp()->GetProfileIntA("Setting", "onStatusBar", true);
+
+	return onStatusBar;
+}
+
+bool Registry::SetClientPosition(Notepad* notepad) {
+	bool ret;
+	RECT rect;
+
+	notepad->GetWindowRect(&rect);
+	ret = AfxGetApp()->WriteProfileBinary("Setting", "clientPosition", (LPBYTE)&rect, sizeof(rect));
+
+	return ret;
 }
 
 bool Registry::SetFont(LOGFONT* lf) {
@@ -43,10 +74,18 @@ bool Registry::SetFont(LOGFONT* lf) {
 	return ret;
 }
 
-bool Registry::SetIsWrapped(bool isWrapped) {
+bool Registry::SetOnStatusBar(bool onStatusBar) {
+	bool ret;
+
+	ret = AfxGetApp()->WriteProfileInt("Setting", "onStatusBar", onStatusBar);
+
+	return ret;
+}
+
+bool Registry::SetOnWordWrap(bool onWordWrap) {
 	bool ret;
 	
-	ret = AfxGetApp()->WriteProfileInt("Setting", "isWrapped", isWrapped);	
+	ret = AfxGetApp()->WriteProfileInt("Setting", "onWordWrap", onWordWrap);
 
 	return ret;
 }

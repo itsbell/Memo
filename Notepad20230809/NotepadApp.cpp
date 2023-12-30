@@ -1,6 +1,7 @@
 //NotepadApp.cpp
 #include "NotepadApp.h"
 #include "Notepad.h"
+#include "Registry.h"
 
 #if 0
 #define _CRTDBG_MAP_ALLOC
@@ -35,7 +36,14 @@ BOOL NotepadApp::InitInstance() {
 	pFrame->UpdateWindow();
 	m_pMainWnd = pFrame;
 	// 윈도우 초기 위치 및 크기 설정
-	m_pMainWnd->SetWindowPos(NULL, 600, 200, 850, 650, NULL);
+	Registry registry;
+	RECT rect;
+	if (registry.GetClientPosition(&rect) == true) {
+		m_pMainWnd->SetWindowPos(NULL, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, NULL);
+	}
+	else {
+		m_pMainWnd->SetWindowPos(NULL, 600, 200, 850, 650, NULL);
+	}
 	
 	return TRUE;
 }
