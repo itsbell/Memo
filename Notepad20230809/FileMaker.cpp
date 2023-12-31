@@ -665,8 +665,6 @@ void FileMaker::RecordLog(UINT nID) {
 		case IDM_RBUTTONUP: command = "RButtonUpCommand"; break;
 		case IDM_MOUSEMOVE: command = "MouseMoveCommand"; break;
 		case IDM_MOUSEWHEEL: command = "MouseWheelCommand"; break;
-		case IDM_ONCREATE: command = "OnCreateMessage"; break;
-
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
