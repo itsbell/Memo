@@ -22,6 +22,10 @@ Glyph::~Glyph() {
 
 }
 
+void Glyph::UnSelect(char* logPath) {
+
+}
+
 Long Glyph::Add(Glyph* glyph) {
 	return -1;
 }

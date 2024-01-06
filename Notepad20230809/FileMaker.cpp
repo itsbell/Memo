@@ -1,18 +1,21 @@
 //FileMaker.cpp
 #include "FileMaker.h"
-#include "TextEditor.h"
+
 #include "CharacterMetrics.h"
-#include "Glyph.h"
-#include "DummyRow.h"
+#include "Date.h"
 #include "Document.h"
+#include "DummyRow.h"
+#include "Font.h"
+#include "Glyph.h"
+#include "Scroll.h"
+#include "ScrollController.h"
+#include "Stack.h"
+#include "TextEditor.h"
 #include "TextConverter.h"
+#include "Time.h"
 #include "UTF8BOMConverter.h"
 #include "UTF16LEConverter.h"
 #include "UTF16BEConverter.h"
-#include "Font.h"
-#include "Date.h"
-#include "Time.h"
-#include "Stack.h"
 #include "resource.h"
 
 #include <shlobj_core.h>
@@ -60,6 +63,7 @@ FileMaker::FileMaker(TextEditor* textEditor)
 	sprintf(this->paste, "%s\\%spaste.tmp", this->path, textEditor->time);
 	sprintf(this->temp, "%s\\%stemp.tmp", this->path, textEditor->time);
 }
+
 FileMaker::FileMaker(TextEditor* textEditor, string pathName)
 	:pathName(pathName){
 	this->textEditor = textEditor;
@@ -668,118 +672,144 @@ void FileMaker::RecordLog(UINT nID) {
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			
-		case VK_LEFT: 
-				if (GetKeyState(VK_CONTROL) & 0x8000 && GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "CtrlShiftLeftKeyAction"; break;
-				}
-				else if (GetKeyState(VK_CONTROL) & 0x8000) {
-					command = "CtrlLeftKeyAction"; break;
-				}
-				else if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftLeftKeyAction"; break;
-				}
-				else if (this->textEditor->document->isSelecting == true) {
-					command = "SelectingLeftKeyAction"; break;
-				}
-				else {
-					command = "LeftKeyAction"; break;
-				}
+		
+		default: break;
+	}
+	if (command != "") {
+		log += (char*)date;
+		char timeFormat[11];
+		sprintf(timeFormat, " %02d:%02d:%02d ", time.GetHour(), time.GetMin(), time.GetSec());
+		log += timeFormat;
+		log += command;
+		file = fopen(this->log, "at");
+		if (file != NULL) {
+			fprintf(file, "%s\n", log.c_str());
+			fclose(file);
+		}
+	}
+}
+
+void FileMaker::RecordLog(UINT nID, bool isKeyAction) {
+	FILE* file;
+	Date date = date.Today();
+	Time time = time.GetCurrent();
+	string command;
+	string log;
+	Glyph* row;
+
+	switch (nID) {
+		case VK_LEFT:
+			if (GetKeyState(VK_CONTROL) & 0x8000 && GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "CtrlShiftLeftKeyAction"; break;
+			}
+			else if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlLeftKeyAction"; break;
+			}
+			else if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftLeftKeyAction"; break;
+			}
+			else if (this->textEditor->document->isSelecting == true) {
+				command = "SelectingLeftKeyAction"; break;
+			}
+			else {
+				command = "LeftKeyAction"; break;
+			}
 		case VK_RIGHT:
-				if (GetKeyState(VK_CONTROL) & 0x8000 && (GetKeyState(VK_SHIFT) & 0x8000)) {
-					command = "CtrlShiftRightKeyAction"; break;
-				}
-				else if (GetKeyState(VK_CONTROL) & 0x8000) {
-					command = "CtrlRightKeyAction"; break;
-				}
-				else if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftRightKeyAction"; break;
-				}
-				else if (this->textEditor->document->isSelecting == true) {
-					command = "SelectingRightKeyAction"; break;
-				}
-				else {
-					command = "RightKeyAction"; break;
-				}
+			if (GetKeyState(VK_CONTROL) & 0x8000 && (GetKeyState(VK_SHIFT) & 0x8000)) {
+				command = "CtrlShiftRightKeyAction"; break;
+			}
+			else if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlRightKeyAction"; break;
+			}
+			else if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftRightKeyAction"; break;
+			}
+			else if (this->textEditor->document->isSelecting == true) {
+				command = "SelectingRightKeyAction"; break;
+			}
+			else {
+				command = "RightKeyAction"; break;
+			}
 		case VK_DOWN:
-				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
-					command = "CtrlShiftDownKeyAction"; break;
-				}
-				else if (GetKeyState(VK_CONTROL) & 0x8000) {
-					command = "CtrlDownKeyAction"; break;
-				}
-				else if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftDownKeyAction"; break;
-				}
-				else {
-					command = "DownKeyAction"; break;
-				}
+			if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+				command = "CtrlShiftDownKeyAction"; break;
+			}
+			else if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlDownKeyAction"; break;
+			}
+			else if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftDownKeyAction"; break;
+			}
+			else {
+				command = "DownKeyAction"; break;
+			}
 		case VK_UP:
-				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
-					command = "CtrlShiftUpKeyAction"; break;
-				}
-				else if (GetKeyState(VK_CONTROL) & 0x8000) {
-					command = "CtrlUpKeyAction"; break;
-				}
-				else if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftUpKeyAction"; break;
-				}
-				else {
-					command = "UpKeyAction"; break;
-				}
+			if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+				command = "CtrlShiftUpKeyAction"; break;
+			}
+			else if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlUpKeyAction"; break;
+			}
+			else if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftUpKeyAction"; break;
+			}
+			else {
+				command = "UpKeyAction"; break;
+			}
 		case VK_HOME:
-				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
-					command = "CtrlShiftHomeKeyAction"; break;
-				}
-				else if (GetKeyState(VK_CONTROL) & 0x8000) {
-					command = "CtrlHomeKeyAction"; break;
-				}
-				else if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftHomeKeyAction"; break;
-				}
-				else {
-					command = "HomeKeyAction"; break;
-				}
+			if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+				command = "CtrlShiftHomeKeyAction"; break;
+			}
+			else if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlHomeKeyAction"; break;
+			}
+			else if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftHomeKeyAction"; break;
+			}
+			else {
+				command = "HomeKeyAction"; break;
+			}
 		case VK_END:
-				if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
-					command = "CtrlShiftEndKeyAction"; break;
-				}
-				else if (GetKeyState(VK_CONTROL) & 0x8000) {
-					command = "CtrlEndKeyAction"; break;
-				}
-				else if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftEndKeyAction"; break;
-				}
-				else {
-					command = "EndKeyAction"; break;
-				}
+			if ((GetKeyState(VK_CONTROL) & 0x8000) && (GetKeyState(VK_SHIFT) & 0x8000)) {
+				command = "CtrlShiftEndKeyAction"; break;
+			}
+			else if (GetKeyState(VK_CONTROL) & 0x8000) {
+				command = "CtrlEndKeyAction"; break;
+			}
+			else if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftEndKeyAction"; break;
+			}
+			else {
+				command = "EndKeyAction"; break;
+			}
 		case VK_PRIOR:
-				if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftPageUpKeyAction"; break;
-				}
-				else {
-					command = "PageUpKeyAction"; break;
-				}
+			if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftPageUpKeyAction"; break;
+			}
+			else {
+				command = "PageUpKeyAction"; break;
+			}
 		case VK_NEXT:
-				if (GetKeyState(VK_SHIFT) & 0x8000) {
-					command = "ShiftPageDownKeyAction"; break;
-				}
-				else {
-					command = "PageDownKeyAction"; break;
-				}
+			if (GetKeyState(VK_SHIFT) & 0x8000) {
+				command = "ShiftPageDownKeyAction"; break;
+			}
+			else {
+				command = "PageDownKeyAction"; break;
+			}
 		case VK_BACK:
-				if (this->textEditor->document->isSelecting == true) {
-					command = "SelectingBackSpaceKeyAction"; break;
-				}
-				else {
-					command = "BackSpaceKeyAction"; break;
-				}
+			if (this->textEditor->document->isSelecting == true) {
+				command = "SelectingBackSpaceKeyAction"; break;
+			}
+			else {
+				command = "BackSpaceKeyAction"; break;
+			}
 		case VK_DELETE:
-				if (this->textEditor->document->isSelecting == true) {
-					command = "SelectingDeleteKeyAction"; break;
-				}
-				else {
-					command = "DeleteKeyAction"; break;
-				}
+			if (this->textEditor->document->isSelecting == true) {
+				command = "SelectingDeleteKeyAction"; break;
+			}
+			else {
+				command = "DeleteKeyAction"; break;
+			}
 		case 0x4F:
 			if (GetKeyState(VK_CONTROL) & 0x8000) {
 				command = "CtrlOKeyAction"; break;
@@ -851,7 +881,7 @@ void FileMaker::RecordLog(UINT nID) {
 					command = "ShiftF3KeyAction"; break;
 				}
 				else {
-					command = "F3KeyAction"; break; 
+					command = "F3KeyAction"; break;
 				}
 			}
 		case VK_OEM_PLUS:
@@ -920,6 +950,58 @@ void FileMaker::RecordLog(string contents) {
 	file = fopen(this->log, "at");
 	if (file != NULL) {
 		fprintf(file, "%s\n", log.c_str());
+		fclose(file);
+	}
+}
+
+void FileMaker::RecordLog(string contents, bool status) {
+	FILE* file;
+	Date date = date.Today();
+	Time time = time.GetCurrent();
+	string log;
+
+	log += (char*)date;
+	char timeFormat[11];
+	sprintf(timeFormat, " %02d:%02d:%02d ", time.GetHour(), time.GetMin(), time.GetSec());
+	log += timeFormat;
+	log += contents;
+
+	char isUpdated[6];
+	char isScrolling[6];
+	char isSelecting[6];
+	CString info;
+	Document* document = this->textEditor->document;
+	Scroll* HS = this->textEditor->scrollController->horizontalScroll;
+	Scroll* VS = this->textEditor->scrollController->verticalScroll;
+
+	if (this->textEditor->isUpdated) {
+		strcpy(isUpdated, "true");
+	}
+	else {
+		strcpy(isUpdated, "false");
+	}
+	if (this->textEditor->isScrolling) {
+		strcpy(isScrolling, "true");
+	}
+	else {
+		strcpy(isScrolling, "false");
+	}
+	if (document->isSelecting) {
+		strcpy(isSelecting, "true");
+	}
+	else {
+		strcpy(isSelecting, "false");
+	}
+
+	info.Format("#TextEditor\n- isUpdaed : %s\n- isScrolling : %s\n\n#Document\n- start : %d\n- end : %d\n- length : %d\n- isSelecting : %s\n- startPosition : (%d,%d)\n- endPosition : (%d,%d)\n\n#ScrollController\n- below : %d\n- VSMax : %d\n- diskFileVSMax : %d\n- vaildMin : %d\n\n#Paper\n- length : %d\n- rowCount : %d\n- current : %d\n\n#HS (LongestRow : %d)\n- maximum : %d\n- page : %d\n- position : %d\n\n#VS\n- maximum : % d\n- page : % d\n- position : %d",
+		isUpdated, isScrolling, this->textEditor->document->GetStart(), this->textEditor->document->GetEnd(), this->textEditor->document->GetLength(), isSelecting, document->startPosition.row, document->startPosition.column, document->endPosition.row, document->endPosition.column, this->textEditor->scrollController->below, this->textEditor->scrollController->vSMax, this->textEditor->scrollController->diskFileVSMax, this->textEditor->scrollController->GetVaildMin(), this->textEditor->note->GetLength(), this->textEditor->note->GetRowCount(), this->textEditor->note->GetCurrent(), this->textEditor->longestRow, HS->GetMaximum(), HS->GetPage(), HS->GetPosition(),
+		VS->GetMaximum(), VS->GetPage(), VS->GetPosition());
+
+	file = fopen(this->log, "at");
+	if (file != NULL) {
+		fprintf(file, "%s\n", log.c_str());
+		fprintf(file, "%s\n", (LPSTR)(LPCSTR)info);
+		fprintf(file, "======================================================================\n\n");
 		fclose(file);
 	}
 }

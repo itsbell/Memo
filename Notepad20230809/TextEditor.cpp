@@ -497,15 +497,14 @@ BOOL TextEditor::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt) {
 void TextEditor::OnMenuClicked(UINT nID) {
 	Command* command;
 	TextEditorCommandFactory commandFactory(this);
-	
-	//로그 남기는 코드 입니다.
-	FileMaker fileMaker(this);
-	fileMaker.RecordLog(nID);
-	
 
 	command = commandFactory.Create(nID);
 
 	if (command != 0) {
+		//로그 남기는 코드 입니다.
+		FileMaker fileMaker(this);
+		fileMaker.RecordLog(nID);
+
 		command->Execute();
 		delete command;
 	}
@@ -514,14 +513,14 @@ void TextEditor::OnMenuClicked(UINT nID) {
 void TextEditor::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	KeyAction* keyAction;
 	KeyActionFactory keyActionFactory(this);
-	
-	//로그 남기는 코드 입니다.
-	FileMaker fileMaker(this);
-	fileMaker.RecordLog(nChar);
 
 	keyAction = keyActionFactory.Create(nChar);
 	
 	if (keyAction != 0) {
+		//로그 남기는 코드 입니다.
+		FileMaker fileMaker(this);
+		fileMaker.RecordLog(nChar, true);
+
 		keyAction->OnKeyDown(nChar, nRepCnt, nFlags);
 		delete keyAction;
 	}

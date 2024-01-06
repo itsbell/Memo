@@ -1034,6 +1034,38 @@ void Document::Move(Long row, Long column) {
 	glyph->Move(column);
 }
 
+void Document::Move(Long row, Long column, char* logPath) {
+	Long i = 0;
+	Long count = 0;
+	Glyph* glyph;
+	FILE* file;
+
+	file = fopen(logPath, "at");
+	if (file != NULL) {
+		glyph = this->paper->GetAt(i);
+		fprintf(file, "Document::Move / first Iteration before start / document.start: %d, document.end: %d, document.length: %d, note.current: %d, note.rowCont: %d, note.length: %d\n", this->start, this->end, this->length, this->paper->GetCurrent(), this->paper->GetRowCount(), this->paper->GetLength());
+		row -= (this->start - 1);
+		while (count < row) {
+			glyph = this->paper->GetAt(i);
+			i++;
+			if (!(dynamic_cast<DummyRow*>(glyph))) {
+				count++;
+			}
+		}
+		this->paper->Move(i);
+		glyph = this->paper->GetAt(i - 1);
+		fprintf(file, "Document::Move / second Iteration before start / document.start: %d, document.end: %d, document.length: %d, note.current: %d, note.rowCont: %d, note.length: %d\n", this->start, this->end, this->length, this->paper->GetCurrent(), this->paper->GetRowCount(), this->paper->GetLength());
+		while (column > glyph->GetLength()) {
+			column -= glyph->GetLength();
+			i = this->paper->Next();
+			glyph = this->paper->GetAt(i - 1);
+		}
+		glyph->Move(column);
+
+		fclose(file);
+	}
+}
+
 void Document::UnSelect() {
 	Long i = 0;
 	Long j = this->startPosition.column;

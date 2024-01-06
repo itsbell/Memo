@@ -29,7 +29,9 @@ class FileMaker {
 		void Remove();
 		void ConvertChar(char* buffer, Long* byte, Long index, bool start, Long* rowLength);
 		void RecordLog(UINT nID);
+		void RecordLog(UINT nID, bool isKeyAction);
 		void RecordLog(string log);
+		void RecordLog(string log, bool status);
 
 		char* GetPath() const;
 		char* GetLog() const;

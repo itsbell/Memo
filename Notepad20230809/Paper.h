@@ -44,6 +44,7 @@ class Paper : public Composite {
 
 		virtual void Select();
 		virtual void UnSelect();
+		virtual void UnSelect(char* logPath);
 		virtual int CompareSelectingPart(string findWhat);
 
 		virtual string Copy();

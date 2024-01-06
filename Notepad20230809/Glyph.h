@@ -5,7 +5,6 @@
 #include <string>
 using namespace std;
 
-
 typedef signed long int Long;
 
 class Position;
@@ -25,6 +24,7 @@ class Glyph {
 		virtual void Accept(GlyphVisitor* visitor) = 0;
 		virtual void Select() = 0;
 		virtual void UnSelect() = 0;
+		virtual void UnSelect(char* logPath);
 
 		virtual Long Add(Glyph* glyph);
 		virtual Long Add(Glyph* glyph, CharacterMetrics* characterMetrics);

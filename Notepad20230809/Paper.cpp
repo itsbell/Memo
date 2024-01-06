@@ -789,6 +789,127 @@ void Paper::UnSelect(){
 	}
 }
 
+void Paper::UnSelect(char* logPath) {
+	bool upDown = true;
+	bool isSelecting = true;
+	Long i = this->current;
+	Long j;
+	Glyph* row = this->GetAt(this->current - 1);
+	Glyph* character;
+
+	FILE* file;
+	file = fopen(logPath, "at");
+	if (file != NULL) {
+		fprintf(file, "Paper::UnSelect start\n");
+		if (row->GetLength() > 0) {
+			if (row->GetCurrent() < row->GetLength()) {
+				character = row->GetAt(row->GetCurrent());
+				if (character->GetIsSelected()) {
+					upDown = false;
+				}
+			}
+			else {
+				character = row->GetAt(row->GetCurrent() - 1);
+				if (character->GetIsSelected() == false) {
+					upDown = false;
+				}
+			}
+		}
+		else {
+			if (row->GetIsSelected() == false) {
+				upDown = false;
+			}
+		}
+		if (upDown) {
+			fprintf(file, "while (j >= 0 && isSelecting) before\n");
+			j = row->GetCurrent() - 1;
+			while (j >= 0 && isSelecting) {
+				character = row->GetAt(j);
+				if (character->GetIsSelected()) {
+					character->UnSelect();
+				}
+				else {
+					isSelecting = false;
+				}
+				j--;
+			}
+			if (!(dynamic_cast<DummyRow*>(row))) {
+				if (row->GetIsSelected()) {
+					row->UnSelect();
+				}
+				else {
+					isSelecting = false;
+				}
+			}
+			i--;
+			fprintf(file, "while (i >= 1 && isSelecting) before\n");
+			while (i >= 1 && isSelecting) {
+				row = this->GetAt(i - 1);
+				j = row->GetLength() - 1;
+				fprintf(file, "while (j >= 0 && isSelecting) before\n");
+				while (j >= 0 && isSelecting) {
+					character = row->GetAt(j);
+					if (character->GetIsSelected()) {
+						character->UnSelect();
+					}
+					else {
+						isSelecting = false;
+					}
+					j--;
+				}
+				if (!(dynamic_cast<DummyRow*>(row)) && row->GetIsSelected()) {
+					row->UnSelect();
+				}
+				else if (!(dynamic_cast<DummyRow*>(row)) && row->GetIsSelected() == false) {
+					isSelecting = false;
+				}
+				i--;
+			}
+		}
+		else {
+			j = row->GetCurrent();
+			fprintf(file, "while (j < row->GetLength() && isSelecting) before\n");
+			while (j < row->GetLength() && isSelecting) {
+				character = row->GetAt(j);
+				if (character->GetIsSelected()) {
+					character->UnSelect();
+				}
+				else {
+					isSelecting = false;
+				}
+				j++;
+			}
+			i++;
+			fprintf(file, "while (i <= this->length && isSelecting) before\n");
+			while (i <= this->length && isSelecting) {
+				row = this->GetAt(i - 1);
+				if ((!(dynamic_cast<DummyRow*>(row)) && row->GetIsSelected()) || dynamic_cast<DummyRow*>(row)) {
+					if (!(dynamic_cast<DummyRow*>(row))) {
+						row->UnSelect();
+					}
+					j = 0;
+					fprintf(file, "while (j < row->GetLength() && isSelecting) before\n");
+					while (j < row->GetLength() && isSelecting) {
+						character = row->GetAt(j);
+						if (character->GetIsSelected()) {
+							character->UnSelect();
+						}
+						else {
+							isSelecting = false;
+						}
+						j++;
+					}
+				}
+				else {
+					isSelecting = false;
+				}
+				i++;
+			}
+		}
+		fclose(file);
+	}
+}
+
 int Paper::CompareSelectingPart(string findWhat) {
 	Long i;
 	Long j = 0;
