@@ -69,6 +69,7 @@ BEGIN_MESSAGE_MAP(TextEditor, CWnd)
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
+	ON_WM_LBUTTONDBLCLK()
 	ON_WM_RBUTTONUP()
 	ON_WM_MOUSEMOVE()
 	ON_WM_MOUSEWHEEL()
@@ -461,6 +462,12 @@ void TextEditor::OnLButtonUp(UINT nFlags, CPoint point) {
 	this->nFlags = nFlags;
 	this->point = point;
 	this->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_LBUTTONUP, NULL));
+}
+
+void TextEditor::OnLButtonDblClk(UINT nFlags, CPoint point) {
+	this->nFlags = nFlags;
+	this->point = point;
+	this->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_LBUTTONDBLCLK, NULL));
 }
 
 void TextEditor::OnMouseMove(UINT nFlags, CPoint point) {

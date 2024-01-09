@@ -197,11 +197,11 @@ END
 // Bitmap
 //
 
-IDB_BITMAP_PREVIOUS     BITMAP                  "C:\\Users\\leebe\\Downloads\\leftArrow.bmp"
+IDB_BITMAP_PREVIOUS     BITMAP                  ".\\..\\resource\\leftArrow.bmp"
 
-IDB_BITMAP_NEXT         BITMAP                  "C:\\Users\\leebe\\Downloads\\rightArrow.bmp"
+IDB_BITMAP_NEXT         BITMAP                  ".\\..\\resource\\rightArrow.bmp"
 
-IDB_BITMAP_PRINT        BITMAP                  "C:\\Users\\leebe\\Downloads\\print.bmp"
+IDB_BITMAP_PRINT        BITMAP                  ".\\..\\resource\\print.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -211,7 +211,7 @@ IDB_BITMAP_PRINT        BITMAP                  "C:\\Users\\leebe\\Downloads\\pr
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON_MEMO           ICON                    "C:\\Users\\leebe\\Downloads\\Memo.ico"
+IDI_ICON_MEMO           ICON                    ".\\..\\resource\\Memo.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////

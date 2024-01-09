@@ -31,6 +31,9 @@ class Glyph {
 		virtual Long Add(Long index, Glyph* glyph);
 		virtual Long Add(Long index, Glyph* glyph, CharacterMetrics* characterMetrics);
 
+		virtual int Compare(char character);
+		virtual int Compare(char* character);
+
 		virtual Long Remove(Long index);
 		virtual Long Remove(Long index, CharacterMetrics* characterMetrics);
 		virtual void Delete(Long start, Position startPosition, Position endPosition, bool isWrapped, CharacterMetrics* characterMetrics, Long width);

@@ -42,6 +42,20 @@ Glyph* SingleByteCharacter::Clone() {
 	return new SingleByteCharacter(*this);
 }
 
+int SingleByteCharacter::Compare(char character) {
+	int ret = -1;
+
+	if (this->character == character) {
+		ret = 0;
+	}
+
+	return ret;
+}
+
+int SingleByteCharacter::Compare(char* character) {
+	return -1;
+}
+
 /*
 함수명칭: GetContents
 기    능: 해당 객체의 내용을 구하다.

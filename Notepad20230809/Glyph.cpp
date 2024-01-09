@@ -42,6 +42,16 @@ Long Glyph::Add(Long index, Glyph* glyph, CharacterMetrics* characterMetrics) {
 	return -1;
 }
 
+int Glyph::Compare(char character)
+{
+	return -1;
+}
+
+int Glyph::Compare(char* character)
+{
+	return -1;
+}
+
 Long Glyph::Remove(Long index) {
 	return -1;
 }

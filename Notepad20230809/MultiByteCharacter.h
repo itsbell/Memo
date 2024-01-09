@@ -16,6 +16,8 @@ class MultiByteCharacter : public Character {
 		virtual ~MultiByteCharacter();
 		
 		virtual Glyph* Clone();
+		virtual int Compare(char character);
+		virtual int Compare(char* character);
 		virtual string GetContents();
 		virtual void Accept(GlyphVisitor* visitor);
 		virtual Long GetWidth(CharacterMetrics* characterMetrics);

@@ -220,6 +220,7 @@
     <ClCompile Include="InfoForm.cpp" />
     <ClCompile Include="KeyAction.cpp" />
     <ClCompile Include="KeyActionFactory.cpp" />
+    <ClCompile Include="LButtonDblClkCommand.cpp" />
     <ClCompile Include="LButtonDownCommand.cpp" />
     <ClCompile Include="LButtonUpCommand.cpp" />
     <ClCompile Include="LeftKeyAction.cpp" />
@@ -411,6 +412,7 @@
     <ClInclude Include="InfoForm.h" />
     <ClInclude Include="KeyAction.h" />
     <ClInclude Include="KeyActionFactory.h" />
+    <ClInclude Include="LButtonDblClkCommand.h" />
     <ClInclude Include="LButtonDownCommand.h" />
     <ClInclude Include="LeftKeyAction.h" />
     <ClInclude Include="MacroCommand.h" />

@@ -45,6 +45,20 @@ Glyph* MultiByteCharacter::Clone() {
 	return new MultiByteCharacter(*this);
 }
 
+int MultiByteCharacter::Compare(char character) {
+	return -1;
+}
+
+int MultiByteCharacter::Compare(char* character) {
+	bool ret = -1;
+
+	if (this->character[0] == character[0] && this->character[1] == character[1]) {
+		ret = 0;
+	}
+
+	return ret;
+}
+
 /*
 함수명칭: GetContents
 기    능: 해당 객체의 내용을 구하다.
