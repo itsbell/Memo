@@ -31,20 +31,20 @@ void SelectingRightKeyAction::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	fileMaker.RecordLog("Paper::UnSelect", true); //Log 积己内靛
 	this->textEditor->note->UnSelect();
 	this->textEditor->document->isSelecting = false;
-	if (this->textEditor->document->GetEnd() < row || this->textEditor->document->GetStart() > row) {
+	if (this->textEditor->document->GetStart() + this->textEditor->note->GetRowCount() - 1 < row || this->textEditor->document->GetStart() > row) {
 		if (this->textEditor->isUpdated == false) {
 			fileMaker.RecordLog("MemoryController::Save", true); //Log 积己内靛
 			this->textEditor->memoryController->Save();
 			fileMaker.RecordLog("ScrollController::UpdateFileVSInfo", true); //Log 积己内靛
 			this->textEditor->scrollController->UpdateFileVSInfo(true);
 		}
-		if(this->textEditor->document->GetEnd() < row){
-			fileMaker.RecordLog("MemoryController::MoveDown", true); //Log 积己内靛
-			this->textEditor->memoryController->MoveDown(row - this->textEditor->note->GetRowCount() + 1);
-		}
-		else {
+		if (this->textEditor->document->GetStart() > row) {
 			fileMaker.RecordLog("MemoryController::MoveUp", true); //Log 积己内靛
 			this->textEditor->memoryController->MoveUp(row);
+		}
+		else{
+			fileMaker.RecordLog("MemoryController::MoveDown", true); //Log 积己内靛
+			this->textEditor->memoryController->MoveDown(row - this->textEditor->note->GetRowCount() + 1);
 		}
 	}
 	fileMaker.RecordLog("Document::Move", true); //Log 积己内靛

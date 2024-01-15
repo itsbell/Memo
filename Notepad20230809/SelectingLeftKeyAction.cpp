@@ -31,7 +31,7 @@ void SelectingLeftKeyAction::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	fileMaker.RecordLog("Paper::UnSelect", true); //Log 积己内靛
 	this->textEditor->note->UnSelect(fileMaker.GetLog());
 	this->textEditor->document->isSelecting = false;
-	if (this->textEditor->document->GetStart() > row || this->textEditor->document->GetEnd() < row) {
+	if (this->textEditor->document->GetStart() > row || this->textEditor->document->GetStart() + this->textEditor->note->GetRowCount() - 1 < row) {
 		if (this->textEditor->isUpdated == false) {
 			fileMaker.RecordLog("MemoryController::Save", true); //Log 积己内靛
 			this->textEditor->memoryController->Save();
