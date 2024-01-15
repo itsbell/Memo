@@ -16,10 +16,18 @@ LButtonDblClkCommand::~LButtonDblClkCommand()
 }
 
 void LButtonDblClkCommand::Execute() {
+	if (this->textEditor->isWrapped == true) {
+		this->textEditor->note->RowUnWrap(this->textEditor->characterMetrics);
+		this->textEditor->current = this->textEditor->note->GetAt(this->textEditor->note->GetCurrent() - 1);
+	}
 	this->textEditor->current->PreviousWord();
 	Position start = this->textEditor->document->GetPosition();
 	this->textEditor->current->NextWord();
 	Position end = this->textEditor->document->GetPosition();
+	if (this->textEditor->isWrapped == true) {
+		this->textEditor->note->WrapRow(this->textEditor->note->GetCurrent() - 1, this->textEditor->rect.right, this->textEditor->characterMetrics, true);
+		this->textEditor->current = this->textEditor->note->GetAt(this->textEditor->note->GetCurrent() - 1);
+	}
 	this->textEditor->x = this->textEditor->GetX(this->textEditor->note->GetCurrent(), this->textEditor->current->GetCurrent());
 	this->textEditor->y = this->textEditor->GetY();
 	this->textEditor->document->Select(start, end);
