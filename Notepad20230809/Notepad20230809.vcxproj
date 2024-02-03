@@ -222,6 +222,7 @@
     <ClCompile Include="KeyActionFactory.cpp" />
     <ClCompile Include="LButtonDblClkCommand.cpp" />
     <ClCompile Include="LButtonDownCommand.cpp" />
+    <ClCompile Include="LButtonTripleClickedCommand.cpp" />
     <ClCompile Include="LButtonUpCommand.cpp" />
     <ClCompile Include="LeftKeyAction.cpp" />
     <ClCompile Include="MacroCommand.cpp" />
@@ -414,6 +415,7 @@
     <ClInclude Include="KeyActionFactory.h" />
     <ClInclude Include="LButtonDblClkCommand.h" />
     <ClInclude Include="LButtonDownCommand.h" />
+    <ClInclude Include="LButtonTripleClickedCommand.h" />
     <ClInclude Include="LeftKeyAction.h" />
     <ClInclude Include="MacroCommand.h" />
     <ClInclude Include="MemoryController.h" />

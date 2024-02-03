@@ -21,6 +21,7 @@ class Stack;
 class Document;
 class Position;
 class CFindReplaceDialog;
+class Time;
 
 class TextEditor : public CWnd , public Subject{
 
@@ -39,6 +40,7 @@ class TextEditor : public CWnd , public Subject{
 		Stack* reDoCommands;
 		CFindReplaceDialog* findDialog;
 		CFindReplaceDialog* findReplaceDialog;
+		Time* doubleClickTime;
 		CRect rect;
 
 		bool isMoving;

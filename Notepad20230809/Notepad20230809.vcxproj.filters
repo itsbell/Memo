@@ -585,6 +585,9 @@
     <ClCompile Include="LButtonDblClkCommand.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="LButtonTripleClickedCommand.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h">
@@ -1158,6 +1161,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="LButtonDblClkCommand.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="LButtonTripleClickedCommand.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

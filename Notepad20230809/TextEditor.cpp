@@ -93,6 +93,7 @@ TextEditor::TextEditor()
 	this->reDoCommands = 0;
 	this->findDialog = 0;
 	this->findReplaceDialog = 0;
+	this->doubleClickTime = 0;
 	this->rect = { 0, };
 	this->isComposing = false;
 	this->isModified = false;
@@ -147,6 +148,9 @@ TextEditor::~TextEditor() {
 	}
 	if (this->reDoCommands != 0) {
 		delete this->reDoCommands;
+	}
+	if (this->time != 0) {
+		delete this->doubleClickTime;
 	}
 	//preview는 preview 윈도우가 종료되면서 할당해제됩니다.
 	//caretController는 KillFocus 메세지에서 할당해제합니다.

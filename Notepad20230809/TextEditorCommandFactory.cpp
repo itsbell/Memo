@@ -51,6 +51,7 @@
 #include "LButtonDownCommand.h"
 #include "LButtonUpCommand.h"
 #include "LButtonDblClkCommand.h"
+#include "LButtonTripleClickedCommand.h"
 #include "RButtonUpCommand.h"
 #include "MouseMoveCommand.h"
 #include "MouseWheelCommand.h"
@@ -238,6 +239,10 @@ Command* TextEditorCommandFactory::Create(UINT nID) {
 
 	else if (nID == IDM_LBUTTONDBLCLK) {
 		command = new LButtonDblClkCommand(this->textEditor);
+	}
+
+	else if (nID == IDM_LBUTTONTRIPLECLK) {
+		command = new LButtonTripleClickedCommand(this->textEditor);
 	}
 
 	else if (nID == IDM_RBUTTONUP) {

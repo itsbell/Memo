@@ -46,8 +46,11 @@ void OnCreateMessage::Execute() {
 	Glyph* glyph;
 	GlyphFactory glyphFactory;
 	Registry* registry;
+	
 	Time time = time.GetCurrent();
 	sprintf(this->textEditor->time, "%02d%02d%02d%03d", time.GetHour(), time.GetMin(), time.GetSec(), time.GetMillisec());
+	this->textEditor->doubleClickTime = new Time(time); // doubleClickTime 초기화
+
 	FileMaker fileMaker(this->textEditor);
 
 	//레지스트리에서 기존 설정을 읽다.

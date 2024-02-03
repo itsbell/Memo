@@ -6,10 +6,12 @@ class Time {
 
 	public:
 		Time();
+		Time(const Time& source);
 		~Time();
 
 		static Time GetCurrent();
 		operator char* ();
+		Time operator -(const Time& source);
 
 		int GetHour() const;
 		int GetMin() const;
