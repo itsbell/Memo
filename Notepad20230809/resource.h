@@ -18,7 +18,7 @@
 #define IDI_ICON1                       135
 #define IDI_ICON_MEMO                   135
 #define IDI_ICON2                       136
-#define OPTIMAL                         1000
+#define OPTIMAL                         50
 #define IDC_EDIT_NUMBER                 1001
 #define IDC_BUTTON_MOVE                 1002
 #define IDC_BUTTON_CANCEL               1003
@@ -30,7 +30,7 @@
 #define IDS_MAGNIFICATION               1201
 #define IDS_CRLF                        1202
 #define IDS_ENCODING                    1203
-#define MAXROW                          2000
+#define MAXROW                          100
 #define MAX                             4096
 #define IDM_FILE_NEW                    40001
 #define IDM_FILE_OPEN                   40002

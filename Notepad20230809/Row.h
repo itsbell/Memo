@@ -26,6 +26,7 @@ class Row : public Composite {
 		virtual Long Remove(Long index, CharacterMetrics* characterMetrics);
 		virtual Glyph* Clone();
 		virtual string GetContents();
+		virtual string GetContents(Long startColumn, Long endColumn);
 		virtual void GetContents(Long start, Long count, Long* i, Long* j, char* contents);
 		virtual void Accept(GlyphVisitor* visitor);
 

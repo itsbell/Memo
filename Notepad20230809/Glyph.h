@@ -20,6 +20,7 @@ class Glyph {
 
 		virtual Glyph* Clone() = 0;
 		virtual string GetContents() = 0;
+		virtual string GetContents(Long startColumn, Long endColumn);
 		virtual void GetContents(Long start, Long count, Long* i, Long* j, char* contents);
 		virtual void Accept(GlyphVisitor* visitor) = 0;
 		virtual void Select() = 0;

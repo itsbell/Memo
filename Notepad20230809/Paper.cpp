@@ -651,6 +651,7 @@ Long Paper::GetColumnNumber() {
 
 	row = this->GetAt(index - 1);
 	column = row->GetCurrent();
+	column = row->GetCurrent();
 	while (dynamic_cast<DummyRow*>(row)) {
 		index--;
 		row = this->GetAt(index - 1);

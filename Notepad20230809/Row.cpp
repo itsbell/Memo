@@ -115,6 +115,17 @@ string Row::GetContents() {
 	return contents;
 }
 
+string Row::GetContents(Long startColumn, Long endColumn) {
+	string contents("");
+	Long i = startColumn;
+
+	while (i <= endColumn) {
+		contents += this->glyphs[i]->GetContents();
+		i++;
+	}
+	return contents;
+}
+
 /*
 함수명칭: Accept
 기    능: 입력되는 GlyphVisitor의 Concrete클래스에 따라 해당 클래스의 Visit함수를 호출한다.

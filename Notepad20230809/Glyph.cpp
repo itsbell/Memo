@@ -249,6 +249,11 @@ void Glyph::FindPreviousMatchWholeWordAndCase(char* findWhat, bool* found, Long*
 
 }
 
+string Glyph::GetContents(Long startColumn, Long endColumn)
+{
+	return string();
+}
+
 void Glyph::GetContents(Long start, Long count, Long* i, Long* j, char* contents){
 
 }
