@@ -279,10 +279,11 @@ void LButtonDownCommand::Execute() {
 		this->textEditor->scrollController->UpdatePosition(this->textEditor->characterMetrics);
 		this->textEditor->Notify();
 		this->textEditor->Invalidate(FALSE);
-	}
-	Time different = time - *(this->textEditor->doubleClickTime);
-	if (different.GetHour() == 0 && different.GetMin() == 0 && different.GetSec() == 0 && different.GetMillisec() <= GetDoubleClickTime()) {
-		this->textEditor->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_LBUTTONTRIPLECLK, NULL));
+
+		Time different = time - *(this->textEditor->doubleClickTime);
+		if (different.GetHour() == 0 && different.GetMin() == 0 && different.GetSec() == 0 && different.GetMillisec() <= GetDoubleClickTime()) {
+			this->textEditor->SendMessage(WM_COMMAND, MAKEWPARAM(IDM_LBUTTONTRIPLECLK, NULL));
+		}
 	}
 }
 
