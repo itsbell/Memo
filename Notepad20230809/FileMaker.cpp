@@ -155,7 +155,7 @@ Long FileMaker::Make(char* data){
 			j = 0;
 			rowLength = 0;
 			memset(contents, 127, MAX - 2);
-			while (data[i] != '\0' && data[i] != '\r') {
+			while (data[i] != '\0' && data[i] != '\r' && data[i] != '\n') {
 				contents[j] = data[i];
 				j++;
 				i++;
@@ -176,6 +176,16 @@ Long FileMaker::Make(char* data){
 			length++;
 			if (data[i] == '\r') {
 				i += 2;
+				if (data[i] == '\0') {
+					fputc('\n', temp);
+					fprintf(temp, "%04d %05d\n", 0, 0);
+					memset(contents, 127, MAX - 2);
+					fwrite(contents, MAX - 2, 1, temp);
+					length++;
+				}
+			}
+			else if (data[i] == '\n') {
+				i++;
 				if (data[i] == '\0') {
 					fputc('\n', temp);
 					fprintf(temp, "%04d %05d\n", 0, 0);
