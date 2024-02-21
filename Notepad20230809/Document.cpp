@@ -917,7 +917,7 @@ void Document::SelectAll()
 			character->Select();
 			j++;
 		}
-		if (!(this->start == 1 && i == 0)) {
+		if (!(this->start == 1 && i == 0) && !dynamic_cast<DummyRow*>(row)) {
 			row->Select();
 		}
 		i++;
