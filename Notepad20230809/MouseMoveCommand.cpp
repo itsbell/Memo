@@ -108,6 +108,7 @@ void MouseMoveCommand::Execute() {
 		this->textEditor->document->Select(previous, current);
 		this->textEditor->document->UpdateSelectingInfo(previous, current);
 	}
+	this->textEditor->isContinuous = false;
 	this->textEditor->x = this->textEditor->GetX(this->textEditor->note->GetCurrent(), this->textEditor->current->GetCurrent());
 	this->textEditor->y = this->textEditor->GetY();
 	this->textEditor->scrollController->UpdatePosition(this->textEditor->characterMetrics);

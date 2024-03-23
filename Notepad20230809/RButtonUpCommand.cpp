@@ -47,6 +47,8 @@ void RButtonUpCommand::Execute() {
 
 	::ClientToScreen(this->textEditor->m_hWnd, &(this->textEditor->point));
 	menu.TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, this->textEditor->point.x, this->textEditor->point.y, this->textEditor, 0);
+
+	this->textEditor->isContinuous = false;
 }
 
 void RButtonUpCommand::Unexecute() {

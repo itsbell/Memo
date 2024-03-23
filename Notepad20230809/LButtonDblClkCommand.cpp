@@ -32,6 +32,7 @@ void LButtonDblClkCommand::Execute() {
 		this->textEditor->note->WrapRow(this->textEditor->note->GetCurrent() - 1, this->textEditor->rect.right, this->textEditor->characterMetrics, true);
 		this->textEditor->current = this->textEditor->note->GetAt(this->textEditor->note->GetCurrent() - 1);
 	}
+	this->textEditor->isContinuous = true;
 	this->textEditor->x = this->textEditor->GetX(this->textEditor->note->GetCurrent(), this->textEditor->current->GetCurrent());
 	this->textEditor->y = this->textEditor->GetY();
 	this->textEditor->document->Select(start, end);

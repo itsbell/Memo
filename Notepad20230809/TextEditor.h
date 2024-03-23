@@ -48,6 +48,7 @@ class TextEditor : public CWnd , public Subject{
 		bool isModified;
 		bool isComposing;
 		bool isClicking;
+		bool isContinuous;
 		bool isUpdated;
 		bool isScrolling;
 

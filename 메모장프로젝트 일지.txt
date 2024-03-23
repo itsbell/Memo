@@ -21,12 +21,17 @@
 │ScrollUp, Down이 발생하는 상황 : 스크롤을 움직였을 때, 확대축소를 할 때		 																			  │
 │MemoryController::Save가 이뤄지고 MoveUp 이나 MoveDown이 이뤄지지 않았을 때 Document::end를 Document::start + paper.rowCount-1로 업데이트를 해줘야한다.	  │
 └─────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+2024-03-23 15:25
+<<완료>> 익호발견 버그 최소화 후 프로그램 종료 시 최소화 크기가 레지스트리에 저장되어 있어서 켜질 때 최소화 크기로 켜지는 문제가 있다.
+
+
 2024-02-04 01:43
 세번클릭시 줄 선택하는 처리과정을 먼저 적어보자.
 TextEditor에서 isContinuous 속성을 추가한다.
 더블클릭 메세지를 받았을 때 isContinuous = TRUE 이다.
 MouseMove나 MouseWheel, RButtonDown 메시지를 받았을 때는 isContinuous = FALSE로 고친다.
 Shift+LButtonDown일때도 isContinuous를 FALSE로 고친다.
+마우스 관련 메시지를 받았을 때 모두 isContinuous를 FALSE로 고치자.
 
 세번클릭 메시지를 보내는 조건에 isContinuous가 TRUE일 때도 추가한다.
 
@@ -37,8 +42,6 @@ Shift+LButtonDown일때도 isContinuous를 FALSE로 고친다.
 Document에서 선택영역을 업데이트한다.
 현재 위치를 줄의 마지막으로 이동한다.
 자동줄바꿈 상태이면 현재줄을 자동줄바꿈한다.
-
-
 
 2024-02-02 07:53
 선택영역을 표시할 때 영역에 사각형을 그리고 그 위에 투명으로 문자를 출력하면 선택영역도 문자겹침없이 출력이 가능할 것으로 보인다.

@@ -219,6 +219,7 @@ void LButtonDownCommand::Execute() {
 					}
 				}
 			}
+			this->textEditor->isContinuous = false;
 		}
 
 		this->textEditor->isMoving = false;

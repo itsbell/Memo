@@ -96,6 +96,7 @@ TextEditor::TextEditor()
 	this->doubleClickTime = 0;
 	this->rect = { 0, };
 	this->isComposing = false;
+	this->isContinuous = false;
 	this->isModified = false;
 	this->isMoving = false;
 	this->isWrapped = false;
@@ -149,7 +150,7 @@ TextEditor::~TextEditor() {
 	if (this->reDoCommands != 0) {
 		delete this->reDoCommands;
 	}
-	if (this->time != 0) {
+	if (this->doubleClickTime != 0) {
 		delete this->doubleClickTime;
 	}
 	//preview는 preview 윈도우가 종료되면서 할당해제됩니다.

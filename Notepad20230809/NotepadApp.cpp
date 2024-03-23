@@ -38,8 +38,14 @@ BOOL NotepadApp::InitInstance() {
 	// 윈도우 초기 위치 및 크기 설정
 	Registry registry;
 	RECT rect;
+	
 	if (registry.GetClientPosition(&rect) == true) {
-		m_pMainWnd->SetWindowPos(NULL, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, NULL);
+		if(rect.right - rect.left >= 420 && rect.bottom - rect.top >= 250) { // Minimum Size
+			m_pMainWnd->SetWindowPos(NULL, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, NULL);
+		}
+		else {
+			m_pMainWnd->SetWindowPos(NULL, 600, 200, 850, 650, NULL);
+		}
 	}
 	else {
 		m_pMainWnd->SetWindowPos(NULL, 600, 200, 850, 650, NULL);
