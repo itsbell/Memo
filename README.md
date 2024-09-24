@@ -5,6 +5,7 @@
 
 <h3>Features</h3>
 <ul>
+<li>Only uses a certain amount of memory (memory usage does not increase even if you write many lines).</li>
 <li>All the features of the default Windows Notepad
   <ul>
   <li>File Load/Save</li>
@@ -16,8 +17,6 @@
   <li>etc..</li>
   </ul>
 </li>
-  
-<li>Only uses a certain amount of memory (memory usage does not increase even if you write many lines).</li>
 </ul>
 
 <h3>Requirements</h3>
