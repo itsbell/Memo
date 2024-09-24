@@ -2,8 +2,10 @@
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
 // Notepad20230325.rc에서 사용되고 있습니다.
 //
-#define MARGIN							2
-#define STATUSBARHEIGHT					30
+#define MARGIN                          2
+#define STATUSBARHEIGHT                 30
+#define OPTIMAL                         50
+#define MAXROW                          100
 #define IDR_MENU1                       102
 #define IDD_DIALOG_ENCODING             103
 #define IDD_ENCODING                    103
@@ -18,7 +20,6 @@
 #define IDI_ICON1                       135
 #define IDI_ICON_MEMO                   135
 #define IDI_ICON2                       136
-#define OPTIMAL                         50
 #define IDC_EDIT_NUMBER                 1001
 #define IDC_BUTTON_MOVE                 1002
 #define IDC_BUTTON_CANCEL               1003
@@ -30,7 +31,6 @@
 #define IDS_MAGNIFICATION               1201
 #define IDS_CRLF                        1202
 #define IDS_ENCODING                    1203
-#define MAXROW                          100
 #define MAX                             4096
 #define IDM_FILE_NEW                    40001
 #define IDM_FILE_OPEN                   40002
@@ -85,9 +85,9 @@
 #define IDM_RBUTTONUP                   40051
 #define IDM_MOUSEMOVE                   40052
 #define IDM_MOUSEWHEEL                  40053
-#define IDM_ONCREATE					40054
-#define IDM_LBUTTONDBLCLK				40055
-#define IDM_LBUTTONTRIPLECLK			40056
+#define IDM_ONCREATE                    40054
+#define IDM_LBUTTONDBLCLK               40055
+#define IDM_LBUTTONTRIPLECLK            40056
 #define IDM_MAX                         40057
 #define SF_ALL                          50000
 #define SF_NORMAL                       50001
@@ -98,8 +98,8 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        137
-#define _APS_NEXT_COMMAND_VALUE         40074
+#define _APS_NEXT_RESOURCE_VALUE        138
+#define _APS_NEXT_COMMAND_VALUE         40077
 #define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           104
 #endif

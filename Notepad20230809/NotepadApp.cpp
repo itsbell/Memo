@@ -26,7 +26,7 @@ BOOL NotepadApp::InitInstance() {
 	Notepad* pFrame = new Notepad;
 	
 	//레지스트리 키 생성
-	this->SetRegistryKey("Memo");
+	this->SetRegistryKey("Memo"); //컴퓨터\HKEY_CURRENT_USER\Software\Memo\Memo
 
 	//2. 프레임윈도우 생성	
 	pFrame->Create(0, "제목없음 - 메모장");

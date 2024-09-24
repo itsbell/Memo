@@ -9,7 +9,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 Registry::Registry() {
-
+	//ÄÄÇ»ÅÍ\HKEY_CURRENT_USER\Software\Memo\Memo
 }
 
 Registry::~Registry() {

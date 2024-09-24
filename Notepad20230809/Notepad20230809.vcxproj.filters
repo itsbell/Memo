@@ -1185,5 +1185,17 @@
     <Image Include="..\..\..\..\..\..\..\Downloads\Memo.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="..\resource\leftArrow.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\resource\rightArrow.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\resource\print.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\resource\Memo.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

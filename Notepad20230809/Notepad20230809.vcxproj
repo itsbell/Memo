@@ -529,6 +529,10 @@
     <Image Include="..\..\..\..\..\..\..\Downloads\Memo.ico" />
     <Image Include="..\..\..\..\..\..\..\Downloads\print.bmp" />
     <Image Include="..\..\..\..\..\..\..\Downloads\rightArrow.bmp" />
+    <Image Include="..\resource\leftArrow.bmp" />
+    <Image Include="..\resource\Memo.ico" />
+    <Image Include="..\resource\print.bmp" />
+    <Image Include="..\resource\rightArrow.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
