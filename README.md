@@ -1,7 +1,7 @@
 # Memo
 
 <h3>Description</h3>
-<p>Memo is almost same with window's notepad.</p>
+<p>Memo is almost same with window's notepad and written C++ using MFC.</p>
 
 <h3>Features</h3>
 <ul>
@@ -28,3 +28,6 @@ Storage: 10MB
 
 <h3>Installing</h3>
 <p>simply download and use the latest Windows version of Memo</p>
+
+<h3>Build</h3>
+Memo was created in Visual Studio Community, you can run the *.sln file and simply build a project
