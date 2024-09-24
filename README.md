@@ -4,6 +4,21 @@
 <p>Memo is almost same with window's notepad.</p>
 
 <h3>Features</h3>
+<ul>
+<li>All the features of the default Windows Notepad</li>
+<li>Associate own file type with application</li>
+<li>Integrate with windows context menu</li>
+<li>Сustomizable encryption options</li>
+<li>Built-in password generator</li>
+<li>Detecting links in editor</li>
+<li>Drag and Drop support</li>
+<li>Сustomizable interface</li>
+<li>Pasteboard function</li>
+<li>Autoclear clipboard</li>
+<li>Autolock editor</li>
+<li>Rich settings</li>
+<li>Portable</li>
+</ul>
 
 <h3>Requirements</h3>
 <p>
