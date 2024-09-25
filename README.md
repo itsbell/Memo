@@ -1,5 +1,5 @@
 # Memo
-![설명 텍스트]([이미지 URL]([https://github.com/itsbell/Memo/blob/main/resource/memo.png?raw=true](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo.png?token=GHSAT0AAAAAACYAO3TELXUEA6YKO4ZJKY7OZXT6TRQ))
+![설명 텍스트](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo.png?token=GHSAT0AAAAAACYAO3TELXUEA6YKO4ZJKY7OZXT6TRQ)
 
 <h3>Description</h3>
 <p>Memo is almost same with window's notepad and written C++ using MFC.</p>
