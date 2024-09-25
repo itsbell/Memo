@@ -8,6 +8,8 @@
 <li>Only uses a certain amount of memory (memory usage does not increase even if you write many lines).</li>
 <li>Preview is possible before printing </li>
 <li>All the features of the default Windows Notepad
+  <details>
+<summary>▶</summary>
   <ul>
   <li>File Load/Save</li>
   <li>Encode/Decode (ANSI / UTF-16 LE / UTF-16 BE / UTF-8 / UTF-8(BOM))</li>
@@ -19,6 +21,7 @@
   <li>Help</li>
   <li>etc..</li>
   </ul>
+  </details>
 </li>
 </ul>
 
