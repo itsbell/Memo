@@ -1,5 +1,5 @@
 # Memo
-
+(https://github.com/itsbell/Memo/blob/main/resource/memo.png?raw=true)
 <h3>Description</h3>
 <p>Memo is almost same with window's notepad and written C++ using MFC.</p>
 
