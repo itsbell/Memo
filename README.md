@@ -6,13 +6,16 @@
 <h3>Features</h3>
 <ul>
 <li>Only uses a certain amount of memory (memory usage does not increase even if you write many lines).</li>
+<li>Preview is possible before printing </li>
 <li>All the features of the default Windows Notepad
   <ul>
   <li>File Load/Save</li>
   <li>Encode/Decode (ANSI / UTF-16 LE / UTF-16 BE / UTF-8 / UTF-8(BOM))</li>
-  <li>Preview/Print</li>
+  <li>Find/Replace</li>
+  <li>Print/PageSetup</li>
   <li>Copy/Paste</li>
   <li>Undo/Redo</li>
+  <li>ZoomIn/ZoomOut</li>
   <li>Help</li>
   <li>etc..</li>
   </ul>
