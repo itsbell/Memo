@@ -1,5 +1,5 @@
 # Memo
-![Memo](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo.png?token=GHSAT0AAAAAACYAO3TELXUEA6YKO4ZJKY7OZXT6TRQ)
+![https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo.png?token=GHSAT0AAAAAACYAO3TELXUEA6YKO4ZJKY7OZXT6TRQ](https://github.com/itsbell/Memo/blob/main/resource/memo.png?raw=true)
 
 <h3>Description</h3>
 <p>Memo is almost same with window's notepad and written C++ using MFC.</p>
@@ -38,7 +38,7 @@
 <p>
 Windows: Windows 7 or higher (Windows 10/11 recommended)
 CPU: x86_64 (64 Bit)
-Storage: 10MB
+Storage: 7 MB
 </p>
 
 <h3>Installing</h3>
