@@ -13,8 +13,8 @@
 ![https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo5.png?token=GHSAT0AAAAAACYAO3TEC2F4GNIGIEWZRUQWZXT65FA](https://github.com/itsbell/Memo/blob/main/resource/memo5.png?raw=true)
     
 ![https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo6.png?token=GHSAT0AAAAAACYAO3TFCGTDRTIKEBXYVQQEZXT64IA](https://github.com/itsbell/Memo/blob/main/resource/memo6.png?raw=true)
-    
     </details>
+    
 <li>Preview is possible before printing </li>
 <li>All the features of the default Windows Notepad
   <details>
