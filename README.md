@@ -33,8 +33,8 @@
 
 <h3>Requirements</h3>
 <p>
-Windows: Windows 7 or higher (Windows 10/11 recommended)
-CPU: x86_64 (64 Bit)
+Windows: Windows 7 or higher (Windows 10/11 recommended)<br>
+CPU: x86_64 (64 Bit)<br>
 Storage: 7 MB
 </p>
 
