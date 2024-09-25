@@ -10,9 +10,9 @@
   <details>
     <summary>Images</summary>
 
-![Memo](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo5.png?token=GHSAT0AAAAAACYAO3TEC2F4GNIGIEWZRUQWZXT65FA)
+![https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo5.png?token=GHSAT0AAAAAACYAO3TEC2F4GNIGIEWZRUQWZXT65FA](https://github.com/itsbell/Memo/blob/main/resource/memo5.png?raw=true)
     
-![Memo](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo6.png?token=GHSAT0AAAAAACYAO3TFCGTDRTIKEBXYVQQEZXT64IA)
+![https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo6.png?token=GHSAT0AAAAAACYAO3TFCGTDRTIKEBXYVQQEZXT64IA](https://github.com/itsbell/Memo/blob/main/resource/memo6.png?raw=true)
     
     </details>
 <li>Preview is possible before printing </li>
