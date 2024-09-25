@@ -9,8 +9,11 @@
 <li>Only uses a certain amount of memory (memory usage does not increase even if you write many lines).</li>
   <details>
     <summary>Images</summary>
-![Memo](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo5.png?token=GHSAT0AAAAAACYAO3TEJMN3GEABMROBFFH4ZXT63XA)
+
 ![Memo](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo6.png?token=GHSAT0AAAAAACYAO3TFCGTDRTIKEBXYVQQEZXT64IA)
+    
+![Memo](https://raw.githubusercontent.com/itsbell/Memo/refs/heads/main/resource/memo6.png?token=GHSAT0AAAAAACYAO3TFCGTDRTIKEBXYVQQEZXT64IA)
+    
     </details>
 <li>Preview is possible before printing </li>
 <li>All the features of the default Windows Notepad
